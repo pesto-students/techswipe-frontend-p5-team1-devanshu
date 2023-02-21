@@ -6,6 +6,10 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import ErrorPage from "./components/error-page";
 import { Hero } from "./components/Hero";
+import { Dashboard } from "./components/Dashboard";
+import { Profile } from "./components/Profile";
+import { Matches } from "./components/Matches";
+import { Messages } from "./components/Messages";
 
 const router = createBrowserRouter([
 	{
@@ -13,21 +17,26 @@ const router = createBrowserRouter([
 		element: <Hero />,
 		errorElement: <ErrorPage />,
 	},
+
 	{
 		path: "/settings",
 		element: <App settings={true} />,
 	},
 	{
 		path: "/dashboard",
-		element: <App settings={false} />,
+		element: <Dashboard />,
 	},
 	{
-		path: "/app",
-		element: <App />,
+		path: "/Profile",
+		element: <Profile />,
 	},
 	{
-		path: "/app",
-		element: <App />,
+		path: "/matches",
+		element: <Matches />,
+	},
+	{
+		path: "/messages",
+		element: <Messages />,
 	},
 ]);
 

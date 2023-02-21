@@ -1,26 +1,20 @@
+/* eslint-disable react/jsx-key */
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./App.css";
+
+import { ImageCard } from "./components/ImageCard";
+import { MobileFooter } from "./components/MobileFooter";
 import { Settings } from "./components/Settings";
+import { users } from "./utils/data";
 
 function App(props) {
-	// const [count, setCount] = useState(0)
-
 	return (
-		<div className=" h-screen">
+		<div className="h-screen">
 			{/* <h1 className="bg-blue-400 text-4xl text-black mb-4">TechSwipe</h1> */}
 			{props.settings && <Settings />}
-			<div className="flex flex-col justify-evenly">
-				<div className="flex justify-center items-center">
-					<div className="ml-2 text-center text-2xl mr-20">
-						TechSwipe
-					</div>
-					<div className="">Filter button</div>
-				</div>
-				<div className="bg-blue-200 h-40">Profile image</div>
-				<div className="bg-blue-600 h-40">Footer</div>
-			</div>
 		</div>
 	);
 }
