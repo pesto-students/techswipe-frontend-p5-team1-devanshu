@@ -6,11 +6,17 @@ import GithubLogo from "../assets/Github.svg";
 import LinkedInLogo from "../assets/linkedIn.svg";
 
 export const Hero = () => {
+	const githubAPI ="http://localhost:3030/auth/github"
+	const linkedInAPI ="http://localhost:3030/auth/linkedin"
 	const navigate = useNavigate();
 	const [firstStep, setFirstStep] = useState(false);
 
-	const handleSubmit = () => {
+	const handleSubmit = async () => {
+		// const response  = await fetch("http://localhost:3030/auth/linkedin",{
+		// 	method:"POST",
+		// })
 		navigate("/settings");
+
 	};
 
 	return (
@@ -42,19 +48,25 @@ export const Hero = () => {
 							Back
 						</div>
 						<button
-							className="bg-white rounded-md px-8 py-2 flex items-center justify-center mb-4 w-80"
-							onClick={handleSubmit}
+						 onClick={handleSubmit}
 						>
-							<img
-								className="pr-2 h-10 w-10"
-								src={LinkedInLogo}
-								alt=""
-							/>
-							Sign in With LinkedIn
+							sign in 
 						</button>
-						<button
+						<a 
+						className="bg-white rounded-md px-8 py-2 flex items-center justify-center mb-4 w-80"
+						href={linkedInAPI}>
+						<img
+							className="pr-2 h-10 w-10"
+							src={LinkedInLogo}
+							alt=""
+						/>
+						Sign in With LinkedIn
+
+						</a>
+						
+						<a
 							className="bg-white rounded-md px-8 py-2 flex items-center justify-center w-80"
-							onClick={handleSubmit}
+							href={githubAPI}
 						>
 							<img
 								className="pr-2 h-10 w-10"
@@ -62,7 +74,7 @@ export const Hero = () => {
 								alt=""
 							/>
 							Sign in With Github
-						</button>
+						</a>
 					</>
 				)}
 			</div>

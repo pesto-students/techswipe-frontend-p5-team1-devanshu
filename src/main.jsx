@@ -1,9 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App";
-import "./index.css";
-
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+
+import "./index.css";
+import App from "./App";
 import ErrorPage from "./components/error-page";
 import { Hero } from "./components/Hero";
 import { Dashboard } from "./components/Dashboard";
@@ -19,15 +19,18 @@ const router = createBrowserRouter([
 	},
 
 	{
-		path: "/settings",
+		path: "/login",
 		element: <App settings={true} />,
+	},
+	{
+
 	},
 	{
 		path: "/dashboard",
 		element: <Dashboard />,
 	},
 	{
-		path: "/Profile",
+		path: "/profile",
 		element: <Profile />,
 	},
 	{
