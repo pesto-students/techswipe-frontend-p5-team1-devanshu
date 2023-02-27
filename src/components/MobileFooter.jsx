@@ -9,7 +9,7 @@ export const MobileFooter = () => {
 	const navigate = useNavigate();
 
 	return (
-		<div className="flex justify-around m-2 md:hidden items-center">
+		<div className="flex justify-around md:hidden items-center bg-blue-500 p-3">
 			{/* MobileFooter */}
 			<img
 				onClick={() => navigate("/dashboard")}

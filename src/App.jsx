@@ -7,7 +7,7 @@ import "./App.css";
 
 import { ImageCard } from "./components/ImageCard";
 import { MobileFooter } from "./components/MobileFooter";
-import { Settings } from "./components/Settings";
+import { Settings } from "./Pages/Settings";
 import { users } from "./utils/data";
 
 function App(props) {

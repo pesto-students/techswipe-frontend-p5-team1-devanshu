@@ -3,13 +3,13 @@ import ReactDOM from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import "./index.css";
-import App from "./App";
-import ErrorPage from "./components/error-page";
-import { Hero } from "./components/Hero";
-import { Dashboard } from "./components/Dashboard";
-import { Profile } from "./components/Profile";
+import { Hero } from "./Pages/Hero";
+import { Profile } from "./Pages/Profile";
+import { Dashboard } from "./Pages/Dashboard";
+
 import { Matches } from "./components/Matches";
 import { Messages } from "./components/Messages";
+import ErrorPage from "./components/error-page";
 
 const router = createBrowserRouter([
 	{
@@ -17,13 +17,9 @@ const router = createBrowserRouter([
 		element: <Hero />,
 		errorElement: <ErrorPage />,
 	},
-
 	{
 		path: "/login",
-		element: <App settings={true} />,
-	},
-	{
-
+		element: <Hero />,
 	},
 	{
 		path: "/dashboard",

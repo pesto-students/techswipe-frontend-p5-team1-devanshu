@@ -1,11 +1,56 @@
 import React, { useState } from "react";
+import Select from "react-select";
 import { useNavigate } from "react-router-dom";
+//
 import LeftArrow from "../assets/arrow-left.svg";
+//
+import {
+	GeoapifyGeocoderAutocomplete,
+	GeoapifyContext,
+} from "@geoapify/react-geocoder-autocomplete";
+import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 
 export const Settings = () => {
 	const navigate = useNavigate();
 
 	const [stepTwo, setStepTwo] = useState(false);
+	const [userData, setUserData] = useState({});
+	const [selectedOption, setSelectedOption] = useState(null);
+
+	const handleValueChanges = (e) => {
+		setUserData({
+			...userData,
+			[e.target.name]: e.target.value,
+		});
+	};
+
+	const [location, setLocation] = useState("");
+
+	function onPlaceSelect(value) {
+		console.log(value);
+		setLocation(value.properties.formatted);
+	}
+
+	function onSuggectionChange(value) {
+		console.log(value);
+	}
+
+	console.log({ location, userData });
+
+	const options = [
+		{ value: "male", label: "Male" },
+		{ value: "female", label: "Female" },
+		{ value: "others", label: "Others" },
+	];
+
+	const developerOptions = [
+		{ value: "full stack developer", label: "Full stack Developer" },
+		{ value: "frontend Developer", label: "Frontend Developer" },
+		{ value: "backend Developer", label: "Backend Developer" },
+		{ value: "devops", label: "Devops" },
+		{ value: "test engineer", label: "Test engineer" },
+	];
+
 	return (
 		<div className="">
 			<div className="flex items-center justify-between bg-blue-400 p-4 mb-4">
@@ -25,19 +70,23 @@ export const Settings = () => {
 						<div className="flex flex-col">
 							<label className="font-semibold">Name</label>
 							<input
+								name="name"
 								placeholder="Name"
 								className="border-2 p-2 my-2"
 								type="text"
+								value={userData.name || ""}
+								onChange={handleValueChanges}
 							/>
 						</div>
 
 						<div className="flex flex-col">
 							{/*FIXME:Change to drop down   */}
 							<label className="font-semibold">Gender</label>
-							<input
-								placeholder="Name"
-								className="border-2 p-2 my-2"
-								type="text"
+							<Select
+								placeholder="Gender"
+								defaultValue={selectedOption}
+								onChange={setSelectedOption}
+								options={options}
 							/>
 						</div>
 
@@ -76,11 +125,17 @@ export const Settings = () => {
 
 						<div className="flex flex-col">
 							<label className="font-semibold">Location</label>
-							<input
-								placeholder="Location"
-								className="border-2 p-2 my-2"
-								type="text"
-							/>
+
+							<GeoapifyContext apiKey="112eddcf23924c998ccb79ed3f2c3b6c">
+								<GeoapifyGeocoderAutocomplete
+									placeholder="Enter address here"
+									type="city"
+									limit={10}
+									value={location}
+									placeSelect={onPlaceSelect}
+									suggestionsChange={onSuggectionChange}
+								/>
+							</GeoapifyContext>
 						</div>
 						<div className="flex flex-col">
 							<label className="font-semibold">
@@ -94,10 +149,11 @@ export const Settings = () => {
 						</div>
 						<div className="flex flex-col">
 							<label className="font-semibold">Show me </label>
-							<input
-								placeholder="Show me"
-								className="border-2 p-2 my-2"
-								type="text"
+							<Select
+								placeholder="Gender"
+								defaultValue={selectedOption}
+								onChange={setSelectedOption}
+								options={developerOptions}
 							/>
 						</div>
 					</div>
