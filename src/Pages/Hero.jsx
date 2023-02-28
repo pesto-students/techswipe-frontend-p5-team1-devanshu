@@ -5,9 +5,11 @@ import Logo from "../assets/Logo.svg";
 import GithubLogo from "../assets/Github.svg";
 import LinkedInLogo from "../assets/linkedIn.svg";
 
+const BACKEND_URL = import.meta.env.VITE_BACKEND_API
+
 export const Hero = () => {
-	const githubAPI = "http://localhost:3030/auth/github";
-	const linkedInAPI = "http://localhost:3030/auth/linkedin";
+	const githubAPI = `${BACKEND_URL}/auth/github`;
+	const linkedInAPI = `${BACKEND_URL}/auth/linkedin`;
 	const navigate = useNavigate();
 	const [firstStep, setFirstStep] = useState(false);
 
