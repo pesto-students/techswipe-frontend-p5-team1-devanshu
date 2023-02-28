@@ -1,17 +1,22 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+/* eslint-disable react/jsx-key */
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+import { ImageCard } from "./components/ImageCard";
+import { MobileFooter } from "./components/MobileFooter";
+import { Settings } from "./Pages/Settings";
+import { users } from "./utils/data";
 
-  return (
-    <div className="bg-blue-400">
-      
-      <h1 className='text-4xl text-black'>TechSwipe</h1>
-      
-    </div>
-  )
+function App(props) {
+	return (
+		<div className="h-screen">
+			{/* <h1 className="bg-blue-400 text-4xl text-black mb-4">TechSwipe</h1> */}
+			{props.settings && <Settings />}
+		</div>
+	);
 }
 
-export default App
+export default App;
