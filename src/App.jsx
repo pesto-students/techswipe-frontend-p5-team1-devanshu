@@ -11,12 +11,7 @@ import { Settings } from "./Pages/Settings";
 import { users } from "./utils/data";
 
 function App(props) {
-	return (
-		<div className="h-screen">
-			{/* <h1 className="bg-blue-400 text-4xl text-black mb-4">TechSwipe</h1> */}
-			{props.settings && <Settings />}
-		</div>
-	);
+  return <div className="h-screen"></div>;
 }
 
 export default App;
