@@ -8,12 +8,12 @@ export const getUserInfo = async () => {
     },
   });
 
-  return response?.data?.user;
+  return response?.data?.User;
 };
 
-export const UpdateUserInfo = async () => {
+export const UpdateUserInfo = async (data) => {
   const token = JSON.parse(localStorage.getItem("token"));
-  const response = await axiosClient.put("/api/user/info", {
+  const response = await axiosClient.put("/api/user/info", data, {
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useController, useForm } from "react-hook-form";
 // import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 //
-import RangeSlider from "react-range-slider-input";
+// import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
 //
 import {
@@ -15,13 +15,14 @@ import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import { developerOptions, options } from "../utils/constants";
 //
 import { getUserInfo, UpdateUserInfo } from "../utils/api";
+import { PartTwo } from "../components/settings/PartTwo";
 
 export const Settings = () => {
   const { data: user } = useQuery({
     queryKey: ["user"],
     queryFn: getUserInfo,
     onSuccess: (data) => {
-      reset({ ...data, distanceRange: 200 });
+      reset({ ...data, radius: 1000 });
     },
   });
 
@@ -38,9 +39,10 @@ export const Settings = () => {
       name: user?.name,
       email: user?.email,
       phoneNumber: user?.phoneNumber,
-      distanceRange: 200,
+      radius: 1000,
     },
   });
+
   const { field: genderField } = useController({
     name: "gender",
     control,
@@ -59,14 +61,10 @@ export const Settings = () => {
     rules: { required: true },
   });
 
-  const distanceRange = watch("distanceRange");
+  const radius = watch("radius");
 
-  const [stepTwo, setStepTwo] = useState(false);
-  //   const [selectedOption, setSelectedOption] = useState(null);
-
+  const [stepTwo, setStepTwo] = useState(true);
   const [location, setLocation] = useState("");
-
-  useEffect(() => {}, []);
 
   function onPlaceSelect(value) {
     console.log(value);
@@ -84,30 +82,12 @@ export const Settings = () => {
       discoverySettings: {
         role: data.role.value, //default value
         gender: data.discoveryGender.value,
-        ageRange: [], // array
-        radius: 100, // 100KM
+        ageRange: [24, 36], // array
+        radius: radius, // 100KM
       },
     };
     console.log({ transformedFields });
-    // {
-    // 	"name": "Sridhar Katta",
-    // 	"email": "kattasridhar02@gmail.com",
-    // 	"phoneNumber": "",
-    // 	"gender": {
-    // 		"value": "female",
-    // 		"label": "Female"
-    // 	},
-    // 	"discoveryGender": {
-    // 		"value": "male",
-    // 		"label": "Male"
-    // 	},
-    // 	"developerType": {
-    // 		"value": "frontend Developer",
-    // 		"label": "Frontend Developer"
-    // 	},
-    // 	"dateOfBirth": ""
-    // }
-    // firstStepMutation(transformedFields);
+    firstStepMutation.mutate(transformedFields);
   };
 
   if (!user) return null;
@@ -115,8 +95,11 @@ export const Settings = () => {
   return (
     <div className="md:border-2 md:border-slate-500 my-4 md:my-10 md:rounded-md">
       <div className="px-2 md:py-2 flex flex-col items-center">
-        <img src="" alt="Profile pic" />
-        <div>DOB</div>
+        <img
+          className="rounded-full h-30 w-20"
+          src="https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg"
+          alt="Profile pic"
+        />
         {!stepTwo ? (
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full">
@@ -165,7 +148,7 @@ export const Settings = () => {
                   placeholder="Date of birth"
                   className="border-2 p-2 my-2"
                   type="date"
-                  {...register("dateOfBirth", { required: true })}
+                  {...register("birthday", { required: true })}
                 />
               </div>
               <div className="flex flex-col">
@@ -185,14 +168,14 @@ export const Settings = () => {
                 <div className="flex flex-col">
                   <div className="flex justify-between font-semibold mb-2">
                     <div>Max Distance</div>
-                    <div>{distanceRange}</div>
+                    <div>{radius} KM</div>
                   </div>
                   <input
                     type="range"
-                    step={100}
-                    min={100}
-                    max={1000}
-                    {...register("distanceRange")}
+                    step={1000}
+                    min={1000}
+                    max={10000}
+                    {...register("radius")}
                   />
                 </div>
               </div>
@@ -239,48 +222,9 @@ export const Settings = () => {
             </div>
           </form>
         ) : (
-          <form>
-            <div className="p-2">
-              <div className="flex flex-col">
-                <label className="font-semibold">Where do you work?</label>
-                <input
-                  placeholder="Where do you work?"
-                  className="border-2 p-2 my-2"
-                  type="text"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">
-                  What is your role in your company?
-                </label>
-                <input
-                  placeholder="What is your role in your company?"
-                  className="border-2 p-2 my-2"
-                  type="text"
-                />
-              </div>
-              <div className="font-semibold text-lg">
-                Select your favorite languages?
-              </div>
-              <div>drop down needs to be there</div>
-              <div className="font-semibold text-lg    ">
-                Select your Interests?
-              </div>
-              <div>drop down needs to be there</div>
-
-              <div className="font-medium mb-4 text-3xl">
-                Answer the following questions
-              </div>
-
-              <button
-                type="submit"
-                className="text-center py-2 bg-blue-700 w-80 text-white rounded-md border-none text-xl"
-                // onClick={() => navigate("/dashboard")}
-              >
-                Start Swiping
-              </button>
-            </div>
-          </form>
+          <div>
+            <PartTwo user={user} />
+          </div>
         )}
       </div>
     </div>
