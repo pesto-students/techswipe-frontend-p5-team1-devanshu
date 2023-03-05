@@ -17,6 +17,7 @@ import { Dashboard } from "./Pages/Dashboard";
 import { Matches } from "./components/Matches";
 import { Messages } from "./components/Messages";
 import ErrorPage from "./components/error-page";
+import { Login } from "./Pages/Login";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Hero />,
+    element: <Login />,
   },
   {
     path: "/dashboard",

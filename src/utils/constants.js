@@ -1,4 +1,6 @@
-// console.log({ location, userData });
+const BACKEND_URL = import.meta.env.VITE_BACKEND_API;
+export const githubAPI = `${BACKEND_URL}/auth/github`;
+export const linkedInAPI = `${BACKEND_URL}/auth/linkedin`;
 
 export const options = [
   { value: "Male", label: "Male" },
