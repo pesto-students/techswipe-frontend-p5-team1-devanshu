@@ -15,3 +15,11 @@
     font-family: Roboto;
   }
 }
+
+.geoapify-close-button {
+  display: none;
+}
+
+.geoapify-autocomplete-input {
+  width: 100%;
+}

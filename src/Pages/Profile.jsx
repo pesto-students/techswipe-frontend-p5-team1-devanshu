@@ -1,24 +1,27 @@
-import React, { useEffect } from "react";
-import queryString from "query-string";
+import React from "react";
 //
-import { Settings } from "./Settings";
-// import { MobileFooter } from "../components/MobileFooter";
-import { useLocalStorage } from "../hooks/useLocalStorage";
+import { Settings } from "../components/settings";
 import { Header } from "../components/Header";
 import { MobileFooter } from "../components/MobileFooter";
 import { Sidebar } from "../components/Sidebar";
 
 export const Profile = () => {
-  const { token } = queryString.parse(window.location.search);
+  // const [userCoordinates, setUseCoordinates] = useState([]);
 
-  // eslint-disable-next-line no-unused-vars
-  const [_, setToken] = useLocalStorage("token", "");
+  // const getLocation = async () => {
+  //   await navigator.geolocation.getCurrentPosition(
+  //     (position) =>
+  //       setUseCoordinates({
+  //         latitude: position.coords.latitude,
+  //         longitude: position.coords.longitude,
+  //       }),
+  //     (err) => console.log(err)
+  //   );
+  // };
 
-  useEffect(() => {
-    if (token) {
-      setToken(token);
-    }
-  }, [token]);
+  // useEffect(() => {
+  //   getLocation();
+  // }, []);
 
   return (
     <div className="flex flex-col justify-evenly">

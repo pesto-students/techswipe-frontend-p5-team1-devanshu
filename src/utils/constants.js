@@ -9,11 +9,19 @@ export const options = [
 ];
 
 export const developerOptions = [
+  { value: "All", label: "Anyone" },
   { value: "Full-Stack Developer", label: "Full Stack Developer" },
   { value: "Frontend Developer", label: "Frontend Developer" },
   { value: "Backend Developer", label: "Backend Developer" },
-  { value: "Devops", label: "Devops" },
-  { value: "test engineer", label: "Test engineer" },
+  { value: "Devops Engineer", label: "Devops Engineer" },
+  { value: "Software Tester", label: "Software Tester" },
+];
+export const companyRoles = [
+  { value: "Full-Stack Developer", label: "Full Stack Developer" },
+  { value: "Frontend Developer", label: "Frontend Developer" },
+  { value: "Backend Developer", label: "Backend Developer" },
+  { value: "Devops Engineer", label: "Devops Engineer" },
+  { value: "Software Tester", label: "Software Tester" },
 ];
 
 export const workExperiences = [
@@ -45,6 +53,21 @@ export const techStacks = [
   "Ruby",
 ];
 
+export const techStackIcons = {
+  Java: "",
+  Go: "",
+  Javascript: "",
+  React: "",
+  Angular: "",
+  Python: "",
+  Nodejs: "",
+  C: "",
+  "C++": "",
+  PHP: "",
+  Larvel: "",
+  Ruby: "",
+};
+
 export const userInterests = [
   "Gaming",
   "Dancing & Singing",
@@ -66,25 +89,33 @@ export const userInterests = [
   "Art & literature",
 ];
 
-export const questioner = [
+export const questions = [
   {
-    question: "what is your favorite type of language?",
+    id: 1,
+    name: "what is your favorite type of language?",
     answers: ["Functional", "Objective"],
   },
   {
-    question: "Are you unix lover or windows?",
+    id: 2,
+
+    name: "Are you unix lover or windows?",
     answers: ["Unix", "Windows"],
   },
   {
-    question: "Would you rather be a freelancer or work for a company?",
+    id: 3,
+
+    name: "Would you rather be a freelancer or work for a company?",
     answers: ["Freelance", "Company"],
   },
   {
-    question: "Would you rather code with a team or work solo?",
+    id: 4,
+
+    name: "Would you rather code with a team or work solo?",
     answers: ["Team", "Solo"],
   },
   {
-    question: "Would you rather debug code with or without a rubber duck?",
+    id: 5,
+    name: "Would you rather debug code with or without a rubber duck?",
     answers: ["Rubber duck", "No Rubber duck"],
   },
 ];
