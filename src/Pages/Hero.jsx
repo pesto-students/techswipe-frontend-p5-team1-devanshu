@@ -1,21 +1,17 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 //
 import Logo from "../assets/Logo.svg";
 import GithubLogo from "../assets/Github.svg";
 import LinkedInLogo from "../assets/linkedIn.svg";
-
-const BACKEND_URL = import.meta.env.VITE_BACKEND_API;
+import { githubAPI, linkedInAPI } from "../utils/constants";
 
 export const Hero = () => {
-  const githubAPI = `${BACKEND_URL}/auth/github`;
-  const linkedInAPI = `${BACKEND_URL}/auth/linkedin`;
-
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const [firstStep, setFirstStep] = useState(false);
 
   const handleSubmit = async () => {
-    navigate("/profile");
+    // navigate("/profile");
   };
 
   return (
@@ -41,12 +37,6 @@ export const Hero = () => {
           )}
           {firstStep && (
             <>
-              {/* <div
-                className="mb-10 text-lg"
-                onClick={() => setFirstStep(false)}
-              >
-                Back
-              </div> */}
               <button
                 className="bg-white rounded-md px-8 py-4 flex items-center justify-center mb-4 w-72"
                 onClick={handleSubmit}
