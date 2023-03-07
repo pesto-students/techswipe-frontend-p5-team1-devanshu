@@ -54,18 +54,25 @@ export const techStacks = [
 ];
 
 export const techStackIcons = {
-  Java: "",
-  Go: "",
-  Javascript: "",
-  React: "",
-  Angular: "",
-  Python: "",
-  Nodejs: "",
-  C: "",
-  "C++": "",
-  PHP: "",
-  Larvel: "",
-  Ruby: "",
+  Java: "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092054/tech%20stack%20icons/java-4-logo-svgrepo-com_qf3twj.svg",
+  Go: "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092326/tech%20stack%20icons/Go_Logo_Blue_tv45a6.png",
+  Javascript:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092052/tech%20stack%20icons/javascript-svgrepo-com_kamh18.svg",
+  React:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092054/tech%20stack%20icons/react-svgrepo-com_y7erz9.svg",
+  Angular:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092052/tech%20stack%20icons/angular-svgrepo-com_i2f0h1.svg",
+  Python:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092052/tech%20stack%20icons/python-svgrepo-com_eyplsz.svg",
+  Nodejs:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092052/tech%20stack%20icons/nodejs-svgrepo-com_sshvgp.svg",
+  C: "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092327/tech%20stack%20icons/clanguage_xfnxil.png",
+  "C++":
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092327/tech%20stack%20icons/cplus_pyu089.png",
+  PHP: "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092053/tech%20stack%20icons/php2-svgrepo-com_wbiz3a.svg",
+  Larvel:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092329/tech%20stack%20icons/larvel_exwner.png",
+  Ruby: "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092052/tech%20stack%20icons/ruby-svgrepo-com_wo3v9x.svg",
 };
 
 export const userInterests = [
