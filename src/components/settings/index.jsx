@@ -206,8 +206,6 @@ export const Settings = () => {
   const hideLocation =
     user && user.location.coordinates.length > 0 ? true : false;
 
-  console.log(user);
-
   if (!user) return null;
 
   return (

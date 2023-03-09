@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { getUserMatchedProfiles } from "../utils/api";
 
-const MatchCard = ({ data }) => {
+export const MatchCard = ({ data }) => {
   return <div>{data}</div>;
 };
 
@@ -13,10 +13,5 @@ export const Matches = () => {
   });
 
   if (isLoading) return <div>Loading....</div>;
-  return (
-    <div>
-      {" "}
-      {/* {data && data.map((data, index) => <MatchCard data={data} key={index} />)} */}
-    </div>
-  );
+  return <div></div>;
 };
