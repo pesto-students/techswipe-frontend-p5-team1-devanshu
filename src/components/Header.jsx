@@ -1,9 +1,15 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 //
 import Logo from "../assets/Logo.svg";
 
 export const Header = () => {
-  const logout = "http://localhost:3030/auth/logout";
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate("/");
+  };
 
   return (
     <div className="flex justify-between items-center p-2 px-4 flex-wrap bg-blue-500">
@@ -14,9 +20,9 @@ export const Header = () => {
       {/* <div className="" onClick={() => navigate("/")}>
           </div> */}
       <div>
-        <a href={logout} className="block">
+        <div onClick={handleLogout} className="block">
           logout
-        </a>
+        </div>
       </div>
     </div>
   );

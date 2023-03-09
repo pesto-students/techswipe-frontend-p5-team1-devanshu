@@ -5,7 +5,6 @@ import { Matches } from "./Matches";
 export const Sidebar = () => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  console.log({ selectedIndex });
   return (
     <div>
       <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
