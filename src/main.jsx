@@ -18,6 +18,7 @@ import { Matches } from "./components/Matches";
 import { Messages } from "./components/Messages";
 import ErrorPage from "./components/error-page";
 import { Login } from "./Pages/Login";
+import { PrivateRouter } from "./Pages/PrivateRouter";
 
 const queryClient = new QueryClient();
 const router = createBrowserRouter([
@@ -32,19 +33,35 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Dashboard />,
+    element: (
+      <PrivateRouter>
+        <Dashboard />
+      </PrivateRouter>
+    ),
   },
   {
     path: "/profile",
-    element: <Profile />,
+    element: (
+      <PrivateRouter>
+        <Profile />
+      </PrivateRouter>
+    ),
   },
   {
     path: "/matches",
-    element: <Matches />,
+    element: (
+      <PrivateRouter>
+        <Matches />
+      </PrivateRouter>
+    ),
   },
   {
     path: "/messages",
-    element: <Messages />,
+    element: (
+      <PrivateRouter>
+        <Messages />
+      </PrivateRouter>
+    ),
   },
 ]);
 
