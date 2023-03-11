@@ -1,4 +1,5 @@
 import { axiosClient } from "./axios";
+import { allConversationsList } from "./data";
 
 export const getUserInfo = async () => {
   const token = JSON.parse(localStorage.getItem("token"));
@@ -67,5 +68,16 @@ export const getProfileStatus = async (token) => {
       Authorization: `Bearer ${token}`,
     },
   });
+  return response.data;
+};
+
+export const getUserConversations = async () => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const response = await axiosClient.get("/api/user/conversationsList", {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
   return response.data;
 };

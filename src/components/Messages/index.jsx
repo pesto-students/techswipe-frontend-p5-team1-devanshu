@@ -1,8 +1,5 @@
 import React from "react";
-import { Header } from "../Header";
-import { MobileFooter } from "../MobileFooter";
 import { NoMessages } from "../NoMessages";
-import { Sidebar } from "../Sidebar";
 
 export const Messages = () => {
   return (
