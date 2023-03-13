@@ -57,7 +57,6 @@ export const getUserMatchedProfiles = async () => {
   //     Authorization: `Bearer ${token}`,
   //   },
   // });
-  // console.log(response);
 
   return sampleData;
 };

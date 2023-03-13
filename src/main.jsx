@@ -24,7 +24,6 @@ import { PrivateRouter } from "./Pages/PrivateRouter";
 const queryClient = new QueryClient();
 const baseURL = import.meta.env.VITE_BACKEND_API;
 const token = JSON.parse(localStorage.getItem("token"));
-console.log(token);
 
 const socket = io(baseURL, {
   auth: {

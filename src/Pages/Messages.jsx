@@ -4,24 +4,29 @@ import { Header } from "../components/Header";
 import { MessagesList } from "../components/MessagesList";
 import { MobileFooter } from "../components/MobileFooter";
 import { Sidebar } from "../components/Sidebar";
-import { getUserConversations } from "../utils/api";
+import { getUserConversations, getUserInfo } from "../utils/api";
 // socket.
 
 export const Messages = ({ socket }) => {
-  const [conversations, setConversations] = useState([]);
+  // const [conversations, setConversations] = useState([]);
   const [openConversation, setOpenConversation] = useState({});
 
-  const { data } = useQuery({
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: getUserInfo,
+  });
+
+  const { data: conversationsData } = useQuery({
     queryKey: ["conversations"],
     queryFn: getUserConversations,
-    onSuccess: (data) => {
-      setConversations(data);
+    onSuccess: () => {
+      // setConversations(data);
     },
   });
 
-  console.log({ data });
-
   const isConversationOpen = Object.keys(openConversation).length !== 0;
+  if (!conversationsData) return null;
+  const { data: conversations } = conversationsData;
 
   return (
     <div>
@@ -36,6 +41,7 @@ export const Messages = ({ socket }) => {
           {isConversationOpen ? (
             <div className="border-2 border-black h-full my-2 w-1/2">
               <MessagesList
+                user={user}
                 socket={socket}
                 openConversation={openConversation}
                 setOpenConversation={setOpenConversation}
@@ -55,6 +61,7 @@ export const Messages = ({ socket }) => {
                   />
                   <div>
                     <h1>{conversation.toUser?.username}</h1>
+                    <h1>{conversation.toUserId}</h1>
                   </div>
                 </div>
               ))}
