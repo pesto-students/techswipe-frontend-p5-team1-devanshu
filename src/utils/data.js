@@ -1,3 +1,5 @@
+import { faker } from "@faker-js/faker";
+
 export const users = [
   {
     "first name": "Lucrèce",
@@ -121,5 +123,74 @@ export const mages = [
   },
   {
     image: "https://picsum.photos/222",
+  },
+];
+
+export const allConversationsList = [
+  {
+    conversationId: faker.datatype.uuid(),
+    fromUser: {
+      id: "",
+      image: "https://picsum.photos/218",
+      username: "sridhar",
+    },
+    toUser: {
+      id: "640b0402c6215f423d7cbfec",
+      image: "https://picsum.photos/219",
+      username: "reegan",
+    },
+  },
+  {
+    conversationId: faker.datatype.uuid(),
+
+    fromUser: {
+      id: "",
+      image: "",
+      username: "sridhar",
+    },
+    toUser: {
+      id: "640b0402c6215f423d7cbfed",
+      image: "https://picsum.photos/220",
+      username: "dibya",
+    },
+  },
+  {
+    conversationId: faker.datatype.uuid(),
+    fromUser: {
+      id: "",
+      image: "",
+      username: "sridhar",
+    },
+    toUser: {
+      id: "640b0402c6215f423d7cbfee",
+      image: "https://picsum.photos/221",
+      username: "hari",
+    },
+  },
+  {
+    conversationId: faker.datatype.uuid(),
+    fromUser: {
+      id: "",
+      image: "",
+      username: "sridhar",
+    },
+    toUser: {
+      id: "640b0402c6215f423d7cbfef",
+      image: "https://picsum.photos/221",
+      username: "sree",
+    },
+  },
+  {
+    conversationId: faker.datatype.uuid(),
+    fromUser: {
+      id: "",
+      image: "",
+      username: "sridhar",
+    },
+    toUser: {
+      id: "640b0402c6215f423d7cbff0",
+      image: "https://picsum.photos/221",
+      username: "ravikrish",
+    },
   },
 ];
