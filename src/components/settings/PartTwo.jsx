@@ -57,11 +57,11 @@ export const PartTwo = ({
           Select your favorite Tech Stack?
         </div>
         <p className="text-slate-400 text-sm">Select atleast 3 values</p>
-        <div className="border-2 border-blue-500 rounded-md flex flex-wrap p-2 my-4">
+        <div className="rounded-md flex flex-wrap my-4 gap-1">
           {techStacks.map((Stack, index) => (
             <div
               className={
-                "border-2 rounded-full w-fit p-2  px-4 m-2 flex items-center" +
+                "border-2 rounded-full w-fit p-1 px-2 m-1 flex items-center text-sm" +
                 (techStack.includes(Stack) ? " bg-blue-400" : "")
               }
               key={index}
@@ -73,11 +73,11 @@ export const PartTwo = ({
         </div>
         <div className="font-semibold text-lg    ">Select your Interests?</div>
         <p className="text-slate-400 text-sm">Select atleast 3 values</p>
-        <div className="border-2 border-blue-500 rounded-md flex flex-wrap p-2  my-4">
+        <div className="flex flex-wrap  my-4">
           {userInterests.map((interest, index) => (
             <div
               className={
-                "border-2 rounded-full w-fit p-2 m-2 flex items-center" +
+                "border-2 rounded-full w-fit p-1 px-2 m-1 flex items-center text-sm" +
                 (interests.includes(interest) ? " bg-blue-400" : "")
               }
               key={index}
@@ -96,7 +96,7 @@ export const PartTwo = ({
             Better know your personality test
           </p>
         </div>
-        <div>
+        <div className="mx-2">
           {questions.map((question) => (
             <div key={question.id}>
               <div className="font-semibold">{question.name}</div>

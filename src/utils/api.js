@@ -22,6 +22,28 @@ export const updateUserInfo = async (data) => {
   return response;
 };
 
+export const postUserLike = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const response = await axiosClient.put("/api/user/liked-profile", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response;
+};
+
+export const postUserDisLike = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const response = await axiosClient.put("/api/user/disliked-profile", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response;
+};
+
 export const getUserMatchedProfiles = async () => {
   const sampleData = [
     { name: "hellena", newProfile: true, profilePic: "" },

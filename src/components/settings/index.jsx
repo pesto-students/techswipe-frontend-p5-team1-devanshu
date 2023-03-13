@@ -209,148 +209,151 @@ export const Settings = () => {
   if (!user) return null;
 
   return (
-    <div className="md:border-2 md:border-slate-500 my-4 md:my-10 md:rounded-md">
-      <div className="px-2 md:py-2 flex flex-col items-center">
-        <img
-          className="rounded-full h-30 w-20"
-          src="https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg"
-          alt="Profile pic"
-        />
-        <form onSubmit={handleSubmit(onSubmit)}>
+    <div className=" md:border-2 md:border-slate-500 my-4 md:my-10 md:rounded-md ">
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="px-2 md:py-2 flex flex-col w-80 md:w-96 items-stretch">
+          <img
+            className="rounded-full h-30 w-20 self-center"
+            src="https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg"
+            alt="Profile pic"
+          />
           {!stepTwo ? (
-            <div className="w-full">
-              <div className="text-lg font-medium mb-4">Account settings</div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Name *</label>
-                <input
-                  className="border-2 p-2 my-2"
-                  placeholder="Name"
-                  {...register("name", { required: true })}
-                />
+            <>
+              <div className="text-lg font-medium my-4 self-center">
+                Account settings
               </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Email *</label>
-                <input
-                  disabled={user?.email ? true : false}
-                  placeholder="Email"
-                  className="border-2 p-2 my-2"
-                  type="email"
-                  {...register("email", { required: true })}
-                />
-              </div>
-
-              <div className="flex flex-col py-2">
-                <label className="font-semibold">Gender *</label>
-                <Select
-                  {...genderField}
-                  placeholder="Gender"
-                  //   defaultValue={selectedOption}
-                  //   onChange={setSelectedOption}
-                  options={options}
-                />
-              </div>
-
-              <div className="flex flex-col">
-                <label className="font-semibold">Phone Number *</label>
-                <input
-                  placeholder="Phone Number"
-                  className="border-2 p-2 my-2"
-                  type="number"
-                  {...register("phoneNumber")}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Date of birth *</label>
-                <input
-                  placeholder="Date of birth"
-                  className="border-2 p-2 my-2"
-                  type="date"
-                  {...register("birthday", { required: true })}
-                />
-              </div>
-              <div className="flex flex-col">
-                <label className="font-semibold">Profile Info *</label>
-                <textarea
-                  placeholder="Profile Info"
-                  className="border-2 p-2 my-2"
-                  type="text"
-                  {...register("bio", { required: true })}
-                />
-              </div>
-              <div className="text-lg font-bold mb-4">Discovery settings</div>
-              {!hideLocation && (
+              <div>
                 <div className="flex flex-col">
-                  <label className="font-semibold">Location</label>
-
-                  <GeoapifyContext apiKey="112eddcf23924c998ccb79ed3f2c3b6c">
-                    <GeoapifyGeocoderAutocomplete
-                      placeholder="Enter address here"
-                      type="street"
-                      limit={5}
-                      value={location.formattedAddress || ""}
-                      placeSelect={onPlaceSelect}
-                    />
-                  </GeoapifyContext>
-                </div>
-              )}
-              <div className="border-2 px-2 my-2">
-                <div className="flex flex-col">
-                  <div className="flex items-center justify-between">
-                    <label className="font-semibold my-2">Age range {}</label>
-                    <div>
-                      {" "}
-                      {ageRange[0]} - {ageRange[1]}{" "}
-                    </div>
-                  </div>
-                  <div className="my-2 mb-4">
-                    <RangeSlider
-                      className="w-2 bg-blue-400"
-                      max={100}
-                      value={ageRange}
-                      onInput={handleAgeRange}
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="border-2 p-2 my-4">
-                <div className="flex flex-col">
-                  <div className="flex justify-between font-semibold mb-2">
-                    <div>Max Distance</div>
-                    <div>{radius} KM</div>
-                  </div>
+                  <label className="font-semibold">Name *</label>
                   <input
-                    type="range"
-                    step={1000}
-                    min={1000}
-                    max={10000}
-                    {...register("radius")}
+                    className="border-2 p-2 my-2"
+                    placeholder="Name"
+                    {...register("name", { required: true })}
                   />
                 </div>
-              </div>
-              <div className="flex flex-col mb-2">
-                <label className="font-semibold mb-2">Looking for</label>
-                <Select
-                  {...discoveryGender}
-                  placeholder="Looking for"
-                  options={options}
-                />
-              </div>
-              <div className="flex flex-col mb-2">
-                <label className="font-semibold mb-2">Show me </label>
-                <Select
-                  {...developerField}
-                  placeholder="Show Me"
-                  options={developerOptions}
-                />
-              </div>
+                <div className="flex flex-col">
+                  <label className="font-semibold">Email *</label>
+                  <input
+                    disabled={user?.email ? true : false}
+                    placeholder="Email"
+                    className="border-2 p-2 my-2"
+                    type="email"
+                    {...register("email", { required: true })}
+                  />
+                </div>
 
-              <button
-                className="text-center py-2 bg-blue-700 w-80 text-white rounded-md border-none text-xl mt-4"
-                onClick={() => setStepTwo(true)}
-              >
-                Next
-              </button>
-            </div>
+                <div className="flex flex-col py-2">
+                  <label className="font-semibold">Gender *</label>
+                  <Select
+                    {...genderField}
+                    placeholder="Gender"
+                    //   defaultValue={selectedOption}
+                    //   onChange={setSelectedOption}
+                    options={options}
+                  />
+                </div>
+
+                <div className="flex flex-col">
+                  <label className="font-semibold">Phone Number *</label>
+                  <input
+                    placeholder="Phone Number"
+                    className="border-2 p-2 my-2"
+                    type="number"
+                    {...register("phoneNumber")}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-semibold">Date of birth *</label>
+                  <input
+                    placeholder="Date of birth"
+                    className="border-2 p-2 my-2"
+                    type="date"
+                    {...register("birthday", { required: true })}
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <label className="font-semibold">Profile Info *</label>
+                  <textarea
+                    placeholder="Profile Info"
+                    className="border-2 p-2 my-2"
+                    type="text"
+                    {...register("bio", { required: true })}
+                  />
+                </div>
+                <div className="text-lg font-bold mb-4">Discovery settings</div>
+                {!hideLocation && (
+                  <div className="flex flex-col">
+                    <label className="font-semibold">Location</label>
+
+                    <GeoapifyContext apiKey="112eddcf23924c998ccb79ed3f2c3b6c">
+                      <GeoapifyGeocoderAutocomplete
+                        placeholder="Enter address here"
+                        type="street"
+                        limit={5}
+                        value={location.formattedAddress || ""}
+                        placeSelect={onPlaceSelect}
+                      />
+                    </GeoapifyContext>
+                  </div>
+                )}
+                <div className="border-2 px-2 my-2">
+                  <div className="flex flex-col">
+                    <div className="flex items-center justify-between">
+                      <label className="font-semibold my-2">Age range {}</label>
+                      <div>
+                        {" "}
+                        {ageRange[0]} - {ageRange[1]}{" "}
+                      </div>
+                    </div>
+                    <div className="my-2 mb-4">
+                      <RangeSlider
+                        className="w-2 bg-blue-400"
+                        max={100}
+                        value={ageRange}
+                        onInput={handleAgeRange}
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div className="border-2 p-2 my-4">
+                  <div className="flex flex-col">
+                    <div className="flex justify-between font-semibold mb-2">
+                      <div>Max Distance</div>
+                      <div>{radius} KM</div>
+                    </div>
+                    <input
+                      type="range"
+                      step={1000}
+                      min={1000}
+                      max={10000}
+                      {...register("radius")}
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col mb-2">
+                  <label className="font-semibold mb-2">Looking for</label>
+                  <Select
+                    {...discoveryGender}
+                    placeholder="Looking for"
+                    options={options}
+                  />
+                </div>
+                <div className="flex flex-col mb-2">
+                  <label className="font-semibold mb-2">Show me </label>
+                  <Select
+                    {...developerField}
+                    placeholder="Show Me"
+                    options={developerOptions}
+                  />
+                </div>
+                <button
+                  className="text-center py-2 bg-blue-700 w-full text-white rounded-md border-none text-xl mt-4"
+                  onClick={() => setStepTwo(true)}
+                >
+                  Next
+                </button>
+              </div>
+            </>
           ) : (
             <div>
               <PartTwo
@@ -372,8 +375,8 @@ export const Settings = () => {
               </button>
             </div>
           )}
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 };
