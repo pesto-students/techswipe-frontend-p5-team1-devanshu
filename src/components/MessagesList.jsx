@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useState } from "react";
 import LeftArrow from "../assets/arrow-left.svg";
-import classNames from "classNames";
+import classNames from "classnames";
 import { formatDistanceToNowStrict, parseISO } from "date-fns";
 import { format } from "date-fns";
 
