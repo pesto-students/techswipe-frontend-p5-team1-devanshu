@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Tab } from "@headlessui/react";
-import { Matches } from "./Matches";
-import { Messages } from "./Messages";
+// import { Matches } from "./";
+import { MessagesComponent } from "./Messages";
+import { MatchesComponent } from "./Matches";
 
-export const Sidebar = () => {
+export const Sidebar = ({ socket }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (
@@ -29,10 +30,13 @@ export const Sidebar = () => {
         </Tab.List>
         <Tab.Panels>
           <Tab.Panel>
-            <Matches />
+            <MatchesComponent setSelectedIndex={setSelectedIndex} />
           </Tab.Panel>
           <Tab.Panel>
-            <Messages />
+            <MessagesComponent
+              socket={socket}
+              setSelectedIndex={setSelectedIndex}
+            />
           </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>

@@ -5,7 +5,7 @@ import { Header } from "../components/Header";
 import { MobileFooter } from "../components/MobileFooter";
 import { Sidebar } from "../components/Sidebar";
 
-export const Profile = () => {
+export const Profile = ({ socket }) => {
   // const [userCoordinates, setUseCoordinates] = useState([]);
 
   // const getLocation = async () => {
@@ -28,7 +28,7 @@ export const Profile = () => {
       <div className="md:w-1/3 md:h-full border-r-2 border-slate-400">
         <Header />
         <div className="hidden md:block">
-          <Sidebar />
+          <Sidebar socket={socket} />
         </div>
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-scroll">

@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from "react";
 import LeftArrow from "../assets/arrow-left.svg";
 import classNames from "classnames";
-import { formatDistanceToNowStrict, parseISO } from "date-fns";
+import { parseISO } from "date-fns";
 import { format } from "date-fns";
 
 import { groupMessagesByDay } from "../utils";
@@ -11,7 +11,9 @@ import { groupMessagesByDay } from "../utils";
 export const MessagesList = (props) => {
   const { socket, openConversation, setOpenConversation } = props;
   const conversationId = openConversation["_id"];
-  const toUserId = openConversation.toUserId;
+  const name = openConversation.toUser.name;
+  const image = openConversation.toUser.profilePhoto;
+  const toUserId = openConversation.toUser.toUserId;
 
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
@@ -52,13 +54,16 @@ export const MessagesList = (props) => {
   };
   const messagesGroup = groupMessagesByDay(messages);
 
+  console.log({});
+
   return (
     <div>
-      <div className="flex bg-blue-200 text-white">
+      <div className="flex bg-blue-200 text-white w-full items-center p-4">
         <button onClick={() => setOpenConversation({})}>
-          <img src={LeftArrow} alt="" className="h-8 w-8" />
+          <img src={LeftArrow} alt="" className="h-6 w-8" />
         </button>
-        <div>{toUserId}</div>
+        <img src={image} alt="" className="h-8 w-8 rounded-full" />
+        <div className="ml-2 text-black">{name}</div>
       </div>
       <div className="flex flex-col overflow-scroll h-[500px] p-2">
         {Object.keys(messagesGroup).map((group, index) => (
