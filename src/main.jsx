@@ -15,7 +15,7 @@ import { Hero } from "./Pages/Hero";
 import { Profile } from "./Pages/Profile";
 import { Dashboard } from "./Pages/Dashboard";
 
-import { Matches } from "./components/Matches";
+import { Matches } from "./Pages/Matches";
 import { Messages } from "./Pages/Messages";
 import ErrorPage from "./components/error-page";
 import { Login } from "./Pages/Login";
@@ -45,7 +45,7 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <PrivateRouter>
-        <Dashboard />
+        <Dashboard socket={socket} />
       </PrivateRouter>
     ),
   },
@@ -53,7 +53,7 @@ const router = createBrowserRouter([
     path: "/profile",
     element: (
       <PrivateRouter>
-        <Profile />
+        <Profile socket={socket} />
       </PrivateRouter>
     ),
   },
@@ -61,7 +61,7 @@ const router = createBrowserRouter([
     path: "/matches",
     element: (
       <PrivateRouter>
-        <Matches />
+        <Matches socket={socket} />
       </PrivateRouter>
     ),
   },

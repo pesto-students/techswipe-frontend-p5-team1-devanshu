@@ -35,7 +35,7 @@ export const Hero = () => {
               <a
                 className="bg-white rounded-md px-8 py-2 flex items-center justify-center mb-4 w-72"
                 // onClick={() => setShowGuestUserLogin(!showGuestUserLogin)}
-                href={`${BACKEND_URL}/api/user/randomUser?email=Tillman92@hotmail.com`}
+                href={`${BACKEND_URL}/api/user/randomUser?email=ahawkyensj@google.co.jp`}
               >
                 Guest user Login
               </a>
