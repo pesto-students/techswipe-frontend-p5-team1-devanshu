@@ -1,20 +1,13 @@
 import React, { useState } from "react";
-const BACKEND_URL = import.meta.env.VITE_BACKEND_API;
-
-// import { useNavigate } from "react-router-dom";
-//
 import Logo from "../assets/Logo.svg";
 import GithubLogo from "../assets/Github.svg";
 import LinkedInLogo from "../assets/linkedIn.svg";
 import { githubAPI, linkedInAPI } from "../utils/constants";
 
-export const Hero = () => {
-  // const navigate = useNavigate();
-  const [firstStep, setFirstStep] = useState(false);
+const BACKEND_URL = import.meta.env.VITE_BACKEND_API;
 
-  const handleSubmit = async () => {
-    // navigate("/profile");
-  };
+export const Hero = () => {
+  const [firstStep, setFirstStep] = useState(false);
 
   return (
     <div className="bg-blue-500 w-full h-screen flex flex-col justify-evenly items-center">
@@ -41,11 +34,21 @@ export const Hero = () => {
             <>
               <a
                 className="bg-white rounded-md px-8 py-2 flex items-center justify-center mb-4 w-72"
+                // onClick={() => setShowGuestUserLogin(!showGuestUserLogin)}
                 href={`${BACKEND_URL}/api/user/randomUser?email=Tillman92@hotmail.com`}
               >
-                <img className="pr-2 h-10 w-10" src={LinkedInLogo} alt="" />
-                Sign as a guest user
+                Guest user Login
               </a>
+              {/* {showGuestUserLogin && (
+                <div>
+                  <Select placeholder="Select a guest user email to login" value={}  />
+                  <a
+                    href={`${BACKEND_URL}/api/user/randomUser?email=Tillman92@hotmail.com`}
+                  >
+                    Login
+                  </a>
+                </div>
+              )} */}
               <a
                 className="bg-white rounded-md px-8 py-2 flex items-center justify-center mb-4 w-72"
                 href={linkedInAPI}
