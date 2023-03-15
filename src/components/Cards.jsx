@@ -15,7 +15,6 @@ import DisLike from "../assets/dislike.svg";
 
 export const TinderCardsList = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
-
   const { data } = useQuery({
     queryKey: ["profiles"],
     queryFn: getUserPossibleMatches,
@@ -58,14 +57,16 @@ export const TinderCardsList = () => {
     console.log({ direction, item, index });
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
+    console.log(data);
+    console.log(index);
     //TODO:Enable this code for it to work
-    // if (Object.keys(item).length > 0) {
-    //   if (direction === "left") {
-    //     handleDislikeMutation.mutate({ userId: item["_id"] });
-    //   } else {
-    //     handleLikeMutation.mutate({ userId: item["_id"] });
-    //   }
-    // }
+    if (Object.keys(item).length > 0) {
+      if (direction === "left") {
+        handleDislikeMutation.mutate({ userId: item["_id"] });
+      } else {
+        handleLikeMutation.mutate({ userId: item["_id"] });
+      }
+    }
   };
 
   const outOfFrame = (name, idx) => {

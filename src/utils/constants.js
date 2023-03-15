@@ -51,6 +51,8 @@ export const techStacks = [
   "PHP",
   "Larvel",
   "Ruby",
+  "Kotlin",
+  "Android",
 ];
 
 export const techStackIcons = {
@@ -73,6 +75,10 @@ export const techStackIcons = {
   Larvel:
     "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092329/tech%20stack%20icons/larvel_exwner.png",
   Ruby: "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092052/tech%20stack%20icons/ruby-svgrepo-com_wo3v9x.svg",
+  Kotlin:
+    "https://res.cloudinary.com/dnqnmsdbt/image/upload/v1678906985/samples/Kotlin_iye1j3.jpg",
+  Android:
+    "https://res.cloudinary.com/dnqnmsdbt/image/upload/v1678906977/samples/Android_p8u19r.png",
 };
 
 export const userInterests = [
