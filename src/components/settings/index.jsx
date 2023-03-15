@@ -281,7 +281,7 @@ export const Settings = ({ userCoordinates }) => {
                   />
                 </div>
                 <button
-                  className="text-center py-2 bg-blue-700 w-full text-white rounded-md border-none text-xl mt-4"
+                  className="text-center py-2 bg-blue-700 w-full text-white rounded-md border-none text-xl mt-4 hover:cursor-pointer hover:bg-blue-900"
                   // onClick={() => setStepTwo(true)}
                 >
                   Next

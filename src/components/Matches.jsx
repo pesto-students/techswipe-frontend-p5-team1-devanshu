@@ -22,12 +22,12 @@ export const MatchesComponent = ({ setSelectedIndex }) => {
           matchedProfiles.map((profile, index) => (
             <div
               key={index}
-              className="w-30 p-4"
+              className="w-30 p-4 hover:cursor-pointer"
               onClick={() => setSelectedIndex(1)}
             >
               <img
                 src={profile.profilePhoto}
-                className="h-20 w-20   rounded-full"
+                className="h-20 w-20 rounded-full"
               />
               <h1 className="text-center pt-2">{profile.name.split(" ")[0]}</h1>
             </div>

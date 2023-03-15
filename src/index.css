@@ -23,3 +23,29 @@
 .geoapify-autocomplete-input {
   width: 100%;
 }
+
+.img-control {
+  user-select: none;
+ -webkit-user-drag: none;
+}
+
+.div-control{
+      user-select: none;
+}
+
+.logout-btn{
+  color:white;
+}
+
+.logout-btn:hover{
+  cursor: pointer;
+  color:rgb(230, 244, 255);
+}
+
+.profile-name{
+  color:white;
+}
+
+.profile-name:hover{
+  color:white;
+}

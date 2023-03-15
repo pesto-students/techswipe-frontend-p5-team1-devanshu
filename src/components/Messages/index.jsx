@@ -50,7 +50,7 @@ export const MessagesComponent = ({ socket }) => {
           {transformedConversations.map((conversation, index) => (
             <div
               key={index}
-              className="w-full h-20 hover:bg-blue-300 flex items-center px-5 py-2"
+              className="w-full h-20 hover:bg-blue-300 flex items-center px-5 py-2 hover:cursor-pointer"
               onClick={() => setOpenConversation(conversation)}
             >
               <img
