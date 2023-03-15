@@ -14,11 +14,12 @@ import {
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
 import { developerOptions, options } from "../../utils/constants";
 //
-import { getUserInfo, updateUserInfo } from "../../utils/api";
+import { getUserInfo, updateUserInfo, updateUserInfo2 } from "../../utils/api";
 import { PartTwo } from "./PartTwo";
 import { useNavigate } from "react-router-dom";
 
-export const Settings = () => {
+export const Settings = ({ userCoordinates }) => {
+  console.log(userCoordinates);
   const navigate = useNavigate();
 
   const { data: user } = useQuery({
@@ -36,13 +37,14 @@ export const Settings = () => {
   });
 
   const firstStepMutation = useMutation({
-    mutationFn: updateUserInfo,
+    mutationFn: updateUserInfo2,
     onSuccess: () => {
-      navigate("/dashboard");
+      // navigate("/dashboard");
+      setStepTwo(true);
     },
   });
 
-  const { register, handleSubmit, reset, control, watch } = useForm({
+  const { register, handleSubmit, reset, control, watch, formState } = useForm({
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
@@ -56,96 +58,25 @@ export const Settings = () => {
     name: "gender",
     control,
     defaultValue: user?.gender || "",
-    rules: { required: true },
+    rules: { required: false },
   });
+
   const { field: discoveryGender } = useController({
     name: "discoveryGender",
     control,
     defaultValue: user?.discoverySettings?.gender || "",
 
-    rules: { required: true },
+    rules: { required: false },
   });
-  // {
-  //     "role": "Software Tester",
-  //     "gender": "Male",
-  //     "ageRange": [
-  //         24,
-  //         40
-  //     ],
-  //     "radius": 4000
-  // }
+
   const { field: developerField } = useController({
     name: "role",
     control,
     defaultValue: user?.discoverySettings?.role || "All",
-    rules: { required: true },
+    rules: { required: false },
   });
 
   const radius = watch("radius");
-
-  const { field: workExperience } = useController({
-    name: "workExperience",
-    defaultValue: "",
-    control,
-    rules: { required: true },
-  });
-
-  const { field: developerRole } = useController({
-    name: "role",
-    defaultValue: "",
-    control,
-    rules: { required: true },
-  });
-
-  const [interests, setInterests] = useState(user?.interest || []);
-  const [techStack, setTechStack] = useState(user?.techStack || []);
-  const [questionAnswers, setQuestionAnswers] = useState(
-    user?.QuestionAnswers || []
-  );
-
-  const handleAnswerChange = (questionId, answer) => {
-    // Find the index of the selected answer in the array
-    const index = questionAnswers.findIndex((item) => item.qid === questionId);
-
-    // If the answer is already selected, update the array
-    if (index !== -1) {
-      setQuestionAnswers([
-        ...questionAnswers.slice(0, index),
-        {
-          qid: questionId,
-          answer,
-        },
-        ...questionAnswers.slice(index + 1),
-      ]);
-    } else {
-      // Otherwise, add a new object to the array
-      setQuestionAnswers([
-        ...questionAnswers,
-        {
-          qid: questionId,
-          answer,
-        },
-      ]);
-    }
-  };
-
-  const handleSelectInterests = (value) => {
-    if (!interests.includes(value)) {
-      setInterests([...interests, value]);
-    } else {
-      const newItems = interests.filter((item) => item !== value);
-      setInterests(newItems);
-    }
-  };
-
-  const handleTechStack = (value) => {
-    if (!techStack.includes(value)) {
-      setTechStack([...techStack, value]);
-    } else {
-      const newItems = techStack.filter((item) => item !== value);
-      setTechStack(newItems);
-    }
-  };
 
   const [stepTwo, setStepTwo] = useState(false);
   const [location, setLocation] = useState({});
@@ -172,15 +103,18 @@ export const Settings = () => {
   };
 
   const onSubmit = (enteredData, event) => {
+    console.log("came here", enteredData);
     event.preventDefault();
+
     const transformedFields = {
       name: enteredData.name,
       profilePhoto:
         "https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg",
       phoneNumber: enteredData.phoneNumber,
       email: enteredData.email || user?.email,
+      place: "india",
       bio: enteredData.bio,
-      birthday: enteredData.birthday,
+      birthday: enteredData.birthday || "2023-03-03",
       gender: enteredData.gender.value,
       coordinates: getCoordinates(),
       discoverySettings: {
@@ -189,12 +123,12 @@ export const Settings = () => {
         ageRange: ageRange, // array
         radius: radius, // 100KM
       },
-      company: enteredData.company,
-      role: enteredData.role.value,
-      workExperience: `${enteredData.workExperience.value}`,
-      QuestionAnswers: questionAnswers,
-      techStack,
-      interest: interests,
+      // company: enteredData.company,
+      // role: enteredData.role.value,
+      // workExperience: `${enteredData.workExperience.value}`,
+      // QuestionAnswers: questionAnswers,
+      // techStack,
+      // interest: interests,
     };
     firstStepMutation.mutate(transformedFields);
   };
@@ -210,15 +144,15 @@ export const Settings = () => {
 
   return (
     <div className=" md:border-2 md:border-slate-500 my-4 md:my-10 md:rounded-md ">
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="px-2 md:py-2 flex flex-col w-80 md:w-96 items-stretch">
-          <img
-            className="rounded-full h-30 w-20 self-center"
-            src="https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg"
-            alt="Profile pic"
-          />
-          {!stepTwo ? (
-            <>
+      <div className="px-2 md:py-2 flex flex-col w-80 md:w-96 items-stretch">
+        <img
+          className="rounded-full h-30 w-20 self-center"
+          src="https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg"
+          alt="Profile pic"
+        />
+        {!stepTwo ? (
+          <>
+            <form onSubmit={handleSubmit(onSubmit)}>
               <div className="text-lg font-medium my-4 self-center">
                 Account settings
               </div>
@@ -228,7 +162,7 @@ export const Settings = () => {
                   <input
                     className="border-2 p-2 my-2"
                     placeholder="Name"
-                    {...register("name", { required: true })}
+                    {...register("name", { required: false })}
                   />
                 </div>
                 <div className="flex flex-col">
@@ -238,7 +172,7 @@ export const Settings = () => {
                     placeholder="Email"
                     className="border-2 p-2 my-2"
                     type="email"
-                    {...register("email", { required: true })}
+                    {...register("email", { required: false })}
                   />
                 </div>
 
@@ -268,7 +202,7 @@ export const Settings = () => {
                     placeholder="Date of birth"
                     className="border-2 p-2 my-2"
                     type="date"
-                    {...register("birthday", { required: true })}
+                    {...register("birthday", { required: false })}
                   />
                 </div>
                 <div className="flex flex-col">
@@ -277,7 +211,7 @@ export const Settings = () => {
                     placeholder="Profile Info"
                     className="border-2 p-2 my-2"
                     type="text"
-                    {...register("bio", { required: true })}
+                    {...register("bio", { required: false })}
                   />
                 </div>
                 <div className="text-lg font-bold mb-4">Discovery settings</div>
@@ -348,35 +282,19 @@ export const Settings = () => {
                 </div>
                 <button
                   className="text-center py-2 bg-blue-700 w-full text-white rounded-md border-none text-xl mt-4"
-                  onClick={() => setStepTwo(true)}
+                  // onClick={() => setStepTwo(true)}
                 >
                   Next
                 </button>
               </div>
-            </>
-          ) : (
-            <div>
-              <PartTwo
-                register={register}
-                techStack={techStack}
-                interests={interests}
-                developerRole={developerRole}
-                workExperience={workExperience}
-                handleTechStack={handleTechStack}
-                questionAnswers={questionAnswers}
-                handleAnswerChange={handleAnswerChange}
-                handleSelectInterests={handleSelectInterests}
-              />
-              <button
-                className="text-center py-2 bg-blue-700 w-80 text-white rounded-md border-none text-xl mt-4"
-                type="submit"
-              >
-                Star Swiping
-              </button>
-            </div>
-          )}
-        </div>
-      </form>
+            </form>
+          </>
+        ) : (
+          <div>
+            <PartTwo user={user} />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

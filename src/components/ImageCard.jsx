@@ -6,7 +6,7 @@ import { techStackIcons } from "../utils/constants";
 export const ImageCard = ({ character }) => {
   const [showMore, setShowMore] = useState(false);
   return (
-    <div className="w-[290px] sm:w-[360px] md:w-[360px] my-10 border-2 border-slate-300 bg-white rounded-md">
+    <div className="w-[290px] sm:w-[360px] md:w-[360px] my-10 border-2 border-slate-300 bg-white rounded-md max-w-lg">
       <div className="flex">
         <img
           src={character.profilePhoto}

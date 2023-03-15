@@ -14,7 +14,7 @@ export const Dashboard = ({ socket }) => {
           <Sidebar socket={socket} />
         </div>
       </div>
-      <div className="flex flex-col items-center w-full h-full overflow-scroll">
+      <div className="flex flex-col items-center w-full h-full overflow-x-hidden overflow-y-scroll">
         <TinderCardsList />
       </div>
 

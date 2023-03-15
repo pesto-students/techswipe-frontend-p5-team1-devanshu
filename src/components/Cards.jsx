@@ -58,6 +58,7 @@ export const TinderCardsList = () => {
     console.log({ direction, item, index });
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
+    //TODO:Enable this code for it to work
     // if (Object.keys(item).length > 0) {
     //   if (direction === "left") {
     //     handleDislikeMutation.mutate({ userId: item["_id"] });
@@ -85,7 +86,7 @@ export const TinderCardsList = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center w-80 h-[620px] relative">
+      <div className="flex flex-col items-center w-80 h-[620px] relative max-w-lg">
         {possibleMatchs.map((character, index) => (
           <TinderCard
             ref={childRefs[index]}
@@ -93,8 +94,8 @@ export const TinderCardsList = () => {
             style={{ top: index * 2 }}
             key={index}
             onSwipe={(dir) => swiped(dir, character, index)}
-            // onCardLeftScreen={() => outOfFrame(character.name, index)}
-            // flickOnSwipe={false}
+            onCardLeftScreen={() => outOfFrame(character.name, index)}
+            flickOnSwipe={false}
           >
             <ImageCard character={character} key={index} />
           </TinderCard>

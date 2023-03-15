@@ -92,3 +92,14 @@ export const getUserMatchedProfiles = async () => {
 
   return response.data;
 };
+
+export const updateUserInfo2 = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const response = await axiosClient.put("/api/user/update-info", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
