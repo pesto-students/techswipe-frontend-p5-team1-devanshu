@@ -154,7 +154,7 @@ export const PartTwo = ({ user }) => {
             {techStacks.map((Stack, index) => (
               <div
                 className={
-                  "border-2 rounded-full w-fit p-1 px-2 m-1 flex items-center text-sm" +
+                  "border-2 rounded-full w-fit p-1 px-2 m-1 flex items-center text-sm hover:cursor-pointer" +
                   (techStack.includes(Stack) ? " bg-blue-400" : "")
                 }
                 key={index}
@@ -172,7 +172,7 @@ export const PartTwo = ({ user }) => {
             {userInterests.map((interest, index) => (
               <div
                 className={
-                  "border-2 rounded-full w-fit p-1 px-2 m-1 flex items-center text-sm" +
+                  "border-2 rounded-full w-fit p-1 px-2 m-1 flex items-center text-sm hover:cursor-pointer" +
                   (interests.includes(interest) ? " bg-blue-400" : "")
                 }
                 key={index}
@@ -221,7 +221,7 @@ export const PartTwo = ({ user }) => {
               </div>
             ))}
           </div>
-          <button className="text-center py-2 bg-blue-700 w-80 text-white rounded-md border-none text-xl mt-4">
+          <button className="text-center py-2 bg-blue-700 w-full text-white rounded-md border-none text-xl mt-4 hover:cursor-pointer hover:bg-blue-900">
             Star Swiping
           </button>
         </div>

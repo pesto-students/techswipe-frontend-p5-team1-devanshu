@@ -6,11 +6,11 @@ import { techStackIcons } from "../utils/constants";
 export const ImageCard = ({ character }) => {
   const [showMore, setShowMore] = useState(false);
   return (
-    <div className="w-[290px] sm:w-[360px] md:w-[360px] my-10 border-2 border-slate-300 bg-white rounded-md max-w-lg">
+    <div className="w-[290px] sm:w-[360px] md:w-[360px] my-10 border-2 border-slate-300 bg-white rounded-md max-w-lg select-none">
       <div className="flex">
         <img
           src={character.profilePhoto}
-          className="h-72 md:w-72 rounded-t-md sm:rounded-tl-md"
+          className="h-72 md:w-72 rounded-t-md sm:rounded-tl-md img-control"
         />
         <div className="hidden sm:block md:block grow">
           <div className="bg-blue-500 text-center py-4 text-white font-medium rounded-tr-md">
@@ -25,7 +25,7 @@ export const ImageCard = ({ character }) => {
               <div key={index}>
                 <img
                   src={techStackIcons[stack]}
-                  className="h-12 w-12 mt-2 rounded-md border-2"
+                  className="h-12 w-12 mt-2 rounded-md border-2 img-control"
                   alt="icon"
                 />
               </div>
