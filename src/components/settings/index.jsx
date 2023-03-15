@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import Select from "react-select";
 import { useController, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+
 // import { useNavigate } from "react-router-dom";
 import { useMutation, useQuery } from "@tanstack/react-query";
 //
@@ -17,10 +20,31 @@ import { developerOptions, options } from "../../utils/constants";
 import { getUserInfo, updateUserInfo, updateUserInfo2 } from "../../utils/api";
 import { PartTwo } from "./PartTwo";
 import { useNavigate } from "react-router-dom";
+import { ImageUpload } from "../ImageUpload";
 
 export const Settings = ({ userCoordinates }) => {
   console.log(userCoordinates);
   const navigate = useNavigate();
+  const [profileImage, setProfileImage] = useState("");
+
+  const schema = z.object({
+    username: z.string(),
+    name: z.string(),
+    profilePhoto: z.string(),
+    phoneNumber: z.number(),
+    email: z.string(),
+    place: z.string(),
+    bio: z.string(),
+    birthday: z.string(),
+    gender: z.string(),
+    coordinates: z.string(),
+    discoverySettings: {
+      role: z.string(), //default value
+      gender: z.string(),
+      ageRange: z.string(), // array
+      radius: z.number(), // 100KM
+    },
+  });
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -44,7 +68,15 @@ export const Settings = ({ userCoordinates }) => {
     },
   });
 
-  const { register, handleSubmit, reset, control, watch, formState } = useForm({
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm({
+    // resolver: zodResolver(schema),
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
@@ -53,6 +85,7 @@ export const Settings = ({ userCoordinates }) => {
       bio: user?.bio | "",
     },
   });
+  console.log({ errors });
 
   const { field: genderField } = useController({
     name: "gender",
@@ -108,8 +141,7 @@ export const Settings = ({ userCoordinates }) => {
 
     const transformedFields = {
       name: enteredData.name,
-      profilePhoto:
-        "https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg",
+      profilePhoto: profileImage,
       phoneNumber: enteredData.phoneNumber,
       email: enteredData.email || user?.email,
       place: "india",
@@ -145,10 +177,16 @@ export const Settings = ({ userCoordinates }) => {
   return (
     <div className=" md:border-2 md:border-slate-500 my-4 md:my-10 md:rounded-md ">
       <div className="px-2 md:py-2 flex flex-col w-80 md:w-96 items-stretch">
-        <img
+        {/* <img
           className="rounded-full h-30 w-20 self-center"
           src="https://res.cloudinary.com/dfzxo5erv/image/upload/v1677839698/generated-image-qvdrl_t83bcy.jpg"
           alt="Profile pic"
+        /> */}
+        <ImageUpload
+          user={user}
+          setProfileImage={setProfileImage}
+          profileImage={profileImage}
+          stepTwo={stepTwo}
         />
         {!stepTwo ? (
           <>
