@@ -20,6 +20,7 @@ import { Messages } from "./Pages/Messages";
 import ErrorPage from "./components/error-page";
 import { Login } from "./Pages/Login";
 import { PrivateRouter } from "./Pages/PrivateRouter";
+import { ErrorFallback } from "./components/ErrorFallback";
 
 const queryClient = new QueryClient();
 const baseURL = import.meta.env.VITE_BACKEND_API;
@@ -40,6 +41,7 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+    errorElement: <ErrorFallback />,
   },
   {
     path: "/dashboard",
@@ -48,6 +50,7 @@ const router = createBrowserRouter([
         <Dashboard socket={socket} />
       </PrivateRouter>
     ),
+    errorElement: <ErrorFallback />,
   },
   {
     path: "/profile",
@@ -56,6 +59,7 @@ const router = createBrowserRouter([
         <Profile socket={socket} />
       </PrivateRouter>
     ),
+    errorElement: <ErrorFallback />,
   },
   {
     path: "/matches",
@@ -64,6 +68,7 @@ const router = createBrowserRouter([
         <Matches socket={socket} />
       </PrivateRouter>
     ),
+    errorElement: <ErrorFallback />,
   },
   {
     path: "/messages",
@@ -72,6 +77,7 @@ const router = createBrowserRouter([
         <Messages socket={socket} />
       </PrivateRouter>
     ),
+    errorElement: <ErrorFallback />,
   },
 ]);
 

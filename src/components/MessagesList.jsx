@@ -1,27 +1,35 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import LeftArrow from "../assets/arrow-left.svg";
 import classNames from "classnames";
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
 
-import { groupMessagesByDay } from "../utils";
+import { getUsers, groupMessagesByDay } from "../utils";
 // import { parse } from "query-string/base";
 
 export const MessagesList = (props) => {
-  const { socket, openConversation, setOpenConversation } = props;
+  const { user, socket, openConversation, setOpenConversation } = props;
+  console.log({ openConversation, user });
+
+  const { toUser } = getUsers(openConversation, user);
+
   const conversationId = openConversation["_id"];
-  const name = openConversation.toUser.name;
-  const image = openConversation.toUser.profilePhoto;
-  const toUserId = openConversation.toUser.toUserId;
+  const name = toUser.name;
+  const image = toUser.profilePhoto;
+  const toUserId = toUser.toUserId;
 
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  const containerRef = useRef(null);
 
   useEffect(() => {
     const handleMessage = (response) => {
-      if (response.toUserId === toUserId) {
+      console.log(response, toUserId);
+      if (response.toUserId === toUserId || response.fromUserId === toUserId) {
         setMessages((messages) => [...messages, response]);
+
+        console.log("ref exceuted", containerRef.current);
       }
     };
 
@@ -41,6 +49,10 @@ export const MessagesList = (props) => {
     };
   }, []);
 
+  useEffect(() => {
+    containerRef.current?.scrollIntoView();
+  }, [messages]);
+
   const handleMessage = (e) => {
     e.preventDefault();
     if (!newMessage) return;
@@ -56,6 +68,8 @@ export const MessagesList = (props) => {
 
   console.log({});
 
+  console.log(containerRef);
+
   return (
     <div>
       <div className="flex bg-blue-200 text-white w-full items-center p-4">
@@ -65,7 +79,10 @@ export const MessagesList = (props) => {
         <img src={image} alt="" className="h-8 w-8 rounded-full" />
         <div className="ml-2 text-black">{name}</div>
       </div>
-      <div className="flex flex-col overflow-scroll h-[500px] p-2">
+      <div
+        className="flex flex-col overflow-scroll h-[500px]"
+        // ref={containerRef}
+      >
         {Object.keys(messagesGroup).map((group, index) => (
           <div className="flex flex-col" key={index}>
             <div className="text-center">{group}</div>
@@ -108,6 +125,7 @@ export const MessagesList = (props) => {
             ))}
           </div>
         ))}
+        <div ref={containerRef} className="h-1" id="messagesEnd" />
       </div>
       <form onSubmit={(e) => handleMessage(e)} className="flex p-2">
         <input

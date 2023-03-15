@@ -4,6 +4,7 @@ import { MessagesList } from "../MessagesList";
 import { NoMessages } from "../NoMessages";
 //
 import { getUserConversations, getUserInfo } from "../../utils/api";
+import { transformConversations } from "../../utils";
 
 export const MessagesComponent = ({ socket }) => {
   // const [conversations, setConversations] = useState([]);
@@ -28,6 +29,10 @@ export const MessagesComponent = ({ socket }) => {
 
   if (conversations.length === 0) return <NoMessages />;
 
+  const transformedConversations = conversations.map((conversation) =>
+    transformConversations(conversation, user)
+  );
+
   return (
     <div className="w-full">
       {/* <NoMessages /> */}
@@ -42,7 +47,7 @@ export const MessagesComponent = ({ socket }) => {
         </div>
       ) : (
         <div className="w-full">
-          {conversations.map((conversation, index) => (
+          {transformedConversations.map((conversation, index) => (
             <div
               key={index}
               className="w-full h-20 hover:bg-blue-300 flex items-center px-5 py-2"
