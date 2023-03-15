@@ -14,7 +14,6 @@ export const MatchesComponent = ({ setSelectedIndex }) => {
   if (isLoading) return <div>Loading...</div>;
 
   const { matchedProfiles } = data;
-  console.log({ matchedProfiles });
 
   return (
     <div className="w-full h-full">

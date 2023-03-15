@@ -22,7 +22,13 @@ import { Login } from "./Pages/Login";
 import { PrivateRouter } from "./Pages/PrivateRouter";
 import { ErrorFallback } from "./components/ErrorFallback";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false, // default: true
+    },
+  },
+});
 const baseURL = import.meta.env.VITE_BACKEND_API;
 const token = JSON.parse(localStorage.getItem("token"));
 

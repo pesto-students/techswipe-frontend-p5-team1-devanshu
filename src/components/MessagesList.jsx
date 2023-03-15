@@ -10,7 +10,6 @@ import { getUsers, groupMessagesByDay } from "../utils";
 
 export const MessagesList = (props) => {
   const { user, socket, openConversation, setOpenConversation } = props;
-  console.log({ openConversation, user });
 
   const { toUser } = getUsers(openConversation, user);
 
@@ -25,11 +24,8 @@ export const MessagesList = (props) => {
 
   useEffect(() => {
     const handleMessage = (response) => {
-      console.log(response, toUserId);
       if (response.toUserId === toUserId || response.fromUserId === toUserId) {
         setMessages((messages) => [...messages, response]);
-
-        console.log("ref exceuted", containerRef.current);
       }
     };
 
@@ -66,10 +62,6 @@ export const MessagesList = (props) => {
   };
   const messagesGroup = groupMessagesByDay(messages);
 
-  console.log({});
-
-  console.log(containerRef);
-
   return (
     <div>
       <div className="flex bg-blue-200 text-white w-full items-center p-4">
@@ -80,7 +72,7 @@ export const MessagesList = (props) => {
         <div className="ml-2 text-black">{name}</div>
       </div>
       <div
-        className="flex flex-col overflow-scroll h-[500px]"
+        className="flex flex-col overflow-scroll h-[500px] px-2"
         // ref={containerRef}
       >
         {Object.keys(messagesGroup).map((group, index) => (

@@ -14,12 +14,15 @@ import Like from "../assets/like.svg";
 import DisLike from "../assets/dislike.svg";
 
 export const TinderCardsList = () => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const { data } = useQuery({
     queryKey: ["profiles"],
     queryFn: getUserPossibleMatches,
+    onSuccess: (data) => {
+      setCurrentIndex(data.possibleMatches.length - 1);
+    },
   });
-
-  console.log(data);
 
   const handleLikeMutation = useMutation({
     mutationFn: postUserLike,
@@ -29,12 +32,9 @@ export const TinderCardsList = () => {
     mutationFn: postUserDisLike,
   });
 
-  const possibleMatchs =
-    data?.possibleMatches?.length > 0 ? data?.possibleMatches : users;
+  const possibleMatchs = (data && data?.possibleMatches) || [];
 
-  const [currentIndex, setCurrentIndex] = useState(possibleMatchs.length - 1);
   const [lastDirection, setLastDirection] = useState();
-  // used for outOfFrame closure
   const currentIndexRef = useRef(currentIndex);
 
   const childRefs = useMemo(
@@ -42,7 +42,7 @@ export const TinderCardsList = () => {
       Array(possibleMatchs.length)
         .fill(0)
         .map((i) => React.createRef()),
-    []
+    [possibleMatchs]
   );
 
   const updateCurrentIndex = (val) => {
@@ -58,13 +58,13 @@ export const TinderCardsList = () => {
     console.log({ direction, item, index });
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
-    if (Object.keys(item).length > 0) {
-      if (direction === "left") {
-        handleDislikeMutation.mutate({ userId: item["_id"] });
-      } else {
-        handleLikeMutation.mutate({ userId: item["_id"] });
-      }
-    }
+    // if (Object.keys(item).length > 0) {
+    //   if (direction === "left") {
+    //     handleDislikeMutation.mutate({ userId: item["_id"] });
+    //   } else {
+    //     handleLikeMutation.mutate({ userId: item["_id"] });
+    //   }
+    // }
   };
 
   const outOfFrame = (name, idx) => {
@@ -78,6 +78,7 @@ export const TinderCardsList = () => {
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < possibleMatchs.length) {
+      console.log(currentIndex);
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
   };
@@ -92,8 +93,8 @@ export const TinderCardsList = () => {
             style={{ top: index * 2 }}
             key={index}
             onSwipe={(dir) => swiped(dir, character, index)}
-            onCardLeftScreen={() => outOfFrame(character.name, index)}
-            flickOnSwipe={false}
+            // onCardLeftScreen={() => outOfFrame(character.name, index)}
+            // flickOnSwipe={false}
           >
             <ImageCard character={character} key={index} />
           </TinderCard>
