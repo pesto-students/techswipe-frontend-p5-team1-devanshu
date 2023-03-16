@@ -1,13 +1,14 @@
 import React from "react";
-import SwipeLogo from "../assets/swipe.png";
-import { useQuery } from "@tanstack/react-query";
-import { getUserMatchedProfiles } from "../utils/api";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+//
+import SwipeLogo from "../assets/swipe.png";
+import { getUserMatchedProfiles } from "../utils/api";
 
-export const MatchesComponent = ({ setSelectedIndex }) => {
+export const MatchesComponent = ({ setSelectedIndex, selectedIndex }) => {
   const navigate = useNavigate();
 
-  const { data, isLoading, error } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["matches"],
     queryFn: getUserMatchedProfiles,
   });
@@ -17,13 +18,18 @@ export const MatchesComponent = ({ setSelectedIndex }) => {
 
   return (
     <div className="w-full h-full">
-      <div className="flex flex-wrap items-center justify-around">
+      <h1 className="block md:hidden  mt-2 text-lg font-semibold border-b-2 p-2">
+        Matches List
+      </h1>
+      <div className="flex flex-wrap items-center justify-around w-80">
         {matchedProfiles && matchedProfiles.length > 0 ? (
           matchedProfiles.map((profile, index) => (
             <div
               key={index}
               className="w-30 p-4"
-              onClick={() => setSelectedIndex(1)}
+              onClick={() =>
+                selectedIndex ? setSelectedIndex(1) : navigate("/messages")
+              }
             >
               <img
                 src={profile.profilePhoto}

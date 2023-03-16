@@ -3,7 +3,7 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import { techStackIcons } from "../utils/constants";
 
-export const ImageCard = ({ character }) => {
+export const ImageCard = ({ character, index, currentIndex }) => {
   const [showMore, setShowMore] = useState(false);
   return (
     <div className="w-[290px] sm:w-[360px] md:w-[360px] my-10 border-2 border-slate-300 bg-white rounded-md max-w-lg">
@@ -44,12 +44,12 @@ export const ImageCard = ({ character }) => {
               Working at {character.company}
             </div>
           )}
-          <div className="text-ellipsis">
-            {character.bio.slice(0, 100) + "..."}
-          </div>
+          {currentIndex === index && (
+            <div className="text-ellipsis">{character.bio}</div>
+          )}
           <button
             className={classNames(
-              "text-blue-600 font-semibold mt-2",
+              "text-blue-600 font-semibold mt-2 pressable",
               showMore ? "" : " mb-2"
             )}
             onClick={() => setShowMore(!showMore)}

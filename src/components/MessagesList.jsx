@@ -64,7 +64,7 @@ export const MessagesList = (props) => {
   const messagesGroup = groupMessagesByDay(messages);
 
   return (
-    <div>
+    <div className="mt-4">
       <div className="flex bg-blue-200 text-white w-full items-center p-4">
         <button onClick={() => setOpenConversation({})}>
           <img src={LeftArrow} alt="" className="h-6 w-8" />
