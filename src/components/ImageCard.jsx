@@ -36,7 +36,7 @@ export const ImageCard = ({ character }) => {
       <div className="">
         <div className="p-3 pb-0">
           <div className="w-full text-xl">{character.name}</div>
-          <div className="my-4 p-2 border-b-2 bg-blue-500 rounded-md w-fit">
+          <div className="my-4 p-2 border-b-2 bg-blue-500 rounded-md w-fit text-white">
             {character.role}
           </div>
           {character.company && (
@@ -63,7 +63,7 @@ export const ImageCard = ({ character }) => {
               <h1 className="font-semibold text-md mt-2">
                 Favorite Tech Stack
               </h1>
-              <div className="rounded-md flex flex-wrap my-2 gap-1">
+              <div className="rounded-md flex flex-wrap my-2 gap-1 text-white">
                 {character?.techStack.map((stack, index) => (
                   <div
                     key={index}
@@ -80,7 +80,7 @@ export const ImageCard = ({ character }) => {
 
             <div className="border-t-2 p-3">
               <h1 className="font-semibold text-md mt-2">Interests</h1>
-              <div className="rounded-md flex flex-wrap my-2 gap-1">
+              <div className="rounded-md flex flex-wrap my-2 gap-1 text-white">
                 {character?.interest.map((interest, index) => (
                   <div
                     key={index}

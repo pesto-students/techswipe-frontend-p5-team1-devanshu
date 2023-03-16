@@ -1,13 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/Logo.svg";
 import GithubLogo from "../assets/Github.svg";
 import LinkedInLogo from "../assets/linkedIn.svg";
 import { githubAPI, linkedInAPI } from "../utils/constants";
+import { useLocalStorage } from "../hooks/useLocalStorage";
+import { useNavigate } from "react-router-dom";
 
 const BACKEND_URL = import.meta.env.VITE_BACKEND_API;
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   const [firstStep, setFirstStep] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [localToken, setToken] = useLocalStorage("token", "");
+
+  useEffect(() => {
+    if (localToken) {
+      navigate("/dashboard");
+    }
+  }, []);
 
   return (
     <div className="bg-blue-500 w-full h-screen flex flex-col justify-evenly items-center">
