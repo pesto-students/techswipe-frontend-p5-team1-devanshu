@@ -35,36 +35,41 @@ export const MessagesComponent = ({ socket }) => {
 
   return (
     <div className="w-full">
-      {/* <NoMessages /> */}
-      {isConversationOpen ? (
-        <div className="h-full my-2 w-full">
-          <MessagesList
-            user={user}
-            socket={socket}
-            openConversation={openConversation}
-            setOpenConversation={setOpenConversation}
-          />
-        </div>
-      ) : (
-        <div className="w-full">
-          {transformedConversations.map((conversation, index) => (
-            <div
-              key={index}
-              className="w-full h-20 hover:bg-blue-300 flex items-center px-5 py-2 hover:cursor-pointer"
-              onClick={() => setOpenConversation(conversation)}
-            >
-              <img
-                src={conversation.toUser?.profilePhoto}
-                className="h-10 w-10 rounded-full mr-2"
-              />
-              <div>
-                <h1>{conversation.toUser?.name}</h1>
-                <h1>{conversation.toUserId}</h1>
+      <div className="w-80">
+        <h1 className="block md:hidden  mt-4 text-lg font-semibold border-b-2 p-2">
+          Messages List
+        </h1>
+        {/* <NoMessages /> */}
+        {isConversationOpen ? (
+          <div className="h-full my-2 w-full">
+            <MessagesList
+              user={user}
+              socket={socket}
+              openConversation={openConversation}
+              setOpenConversation={setOpenConversation}
+            />
+          </div>
+        ) : (
+          <div className="w-full">
+            {transformedConversations.map((conversation, index) => (
+              <div
+                key={index}
+                className="w-full h-20 hover:bg-blue-300 flex items-center px-5 py-2"
+                onClick={() => setOpenConversation(conversation)}
+              >
+                <img
+                  src={conversation.toUser?.profilePhoto}
+                  className="h-10 w-10 rounded-full mr-2"
+                />
+                <div>
+                  <h1>{conversation.toUser?.name}</h1>
+                  <h1>{conversation.toUserId}</h1>
+                </div>
               </div>
-            </div>
-          ))}
-        </div>
-      )}
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -1,10 +1,11 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect, useRef, useState } from "react";
-import LeftArrow from "../assets/arrow-left.svg";
 import classNames from "classnames";
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
-
+//
+import Send from "../assets/send-icon.svg";
+import LeftArrow from "../assets/arrow-left.svg";
 import { getUsers, groupMessagesByDay } from "../utils";
 // import { parse } from "query-string/base";
 
@@ -63,7 +64,7 @@ export const MessagesList = (props) => {
   const messagesGroup = groupMessagesByDay(messages);
 
   return (
-    <div>
+    <div className="mt-4">
       <div className="flex bg-blue-200 text-white w-full items-center p-4">
         <button onClick={() => setOpenConversation({})}>
           <img src={LeftArrow} alt="" className="h-6 w-8" />
@@ -121,12 +122,14 @@ export const MessagesList = (props) => {
       </div>
       <form onSubmit={(e) => handleMessage(e)} className="flex p-2">
         <input
-          className="border-2 w-full mx-2"
+          className="border-2 w-full mx-2 rounded-md"
           type="text"
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
         />
-        <button type="submit">Enter</button>
+        <button type="submit" className="p-2 bg-blue-400 rounded-md">
+          <img src={Send} alt="send icon" className="h-6 w-12" />
+        </button>
       </form>
     </div>
   );

@@ -86,7 +86,7 @@ export const TinderCardsList = () => {
 
   return (
     <div>
-      <div className="flex flex-col items-center w-80 h-[620px] relative max-w-lg">
+      <div className="flex flex-col items-center w-80 h-[640px] relative max-w-lg">
         {possibleMatchs.map((character, index) => (
           <TinderCard
             ref={childRefs[index]}
@@ -97,7 +97,12 @@ export const TinderCardsList = () => {
             onCardLeftScreen={() => outOfFrame(character.name, index)}
             flickOnSwipe={false}
           >
-            <ImageCard character={character} key={index} />
+            <ImageCard
+              character={character}
+              key={index}
+              index={index}
+              currentIndex={currentIndex}
+            />
           </TinderCard>
         ))}
       </div>

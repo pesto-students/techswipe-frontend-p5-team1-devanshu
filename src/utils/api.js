@@ -103,3 +103,15 @@ export const updateUserInfo2 = async (data) => {
 
   return response.data;
 };
+
+export const imageUpload = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const response = await axiosClient.post("/api/user/profile-upload", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};

@@ -3,7 +3,7 @@ import classNames from "classnames";
 import React, { useState } from "react";
 import { techStackIcons } from "../utils/constants";
 
-export const ImageCard = ({ character }) => {
+export const ImageCard = ({ character, index, currentIndex }) => {
   const [showMore, setShowMore] = useState(false);
   return (
     <div className="w-[290px] sm:w-[360px] md:w-[360px] my-10 border-2 border-slate-300 bg-white rounded-md max-w-lg select-none">
@@ -36,7 +36,7 @@ export const ImageCard = ({ character }) => {
       <div className="">
         <div className="p-3 pb-0">
           <div className="w-full text-xl">{character.name}</div>
-          <div className="my-4 p-2 border-b-2 bg-blue-500 rounded-md w-fit">
+          <div className="my-4 p-2 border-b-2 bg-blue-500 rounded-md w-fit text-white">
             {character.role}
           </div>
           {character.company && (
@@ -44,12 +44,12 @@ export const ImageCard = ({ character }) => {
               Working at {character.company}
             </div>
           )}
-          <div className="text-ellipsis">
-            {character.bio.slice(0, 100) + "..."}
-          </div>
+          {currentIndex === index && (
+            <div className="text-ellipsis">{character.bio}</div>
+          )}
           <button
             className={classNames(
-              "text-blue-600 font-semibold mt-2",
+              "text-blue-600 font-semibold mt-2 pressable",
               showMore ? "" : " mb-2"
             )}
             onClick={() => setShowMore(!showMore)}
@@ -63,7 +63,7 @@ export const ImageCard = ({ character }) => {
               <h1 className="font-semibold text-md mt-2">
                 Favorite Tech Stack
               </h1>
-              <div className="rounded-md flex flex-wrap my-2 gap-1">
+              <div className="rounded-md flex flex-wrap my-2 gap-1 text-white">
                 {character?.techStack.map((stack, index) => (
                   <div
                     key={index}
@@ -80,7 +80,7 @@ export const ImageCard = ({ character }) => {
 
             <div className="border-t-2 p-3">
               <h1 className="font-semibold text-md mt-2">Interests</h1>
-              <div className="rounded-md flex flex-wrap my-2 gap-1">
+              <div className="rounded-md flex flex-wrap my-2 gap-1 text-white">
                 {character?.interest.map((interest, index) => (
                   <div
                     key={index}

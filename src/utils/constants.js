@@ -73,6 +73,10 @@ export const techStackIcons = {
   Larvel:
     "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092329/tech%20stack%20icons/larvel_exwner.png",
   Ruby: "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678092052/tech%20stack%20icons/ruby-svgrepo-com_wo3v9x.svg",
+  Android:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678932570/android_zaymar.svg",
+  Kotlin:
+    "https://res.cloudinary.com/dfzxo5erv/image/upload/v1678932573/kotlin-1_pttrne.svg",
 };
 
 export const userInterests = [
