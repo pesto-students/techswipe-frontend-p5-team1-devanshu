@@ -9,7 +9,6 @@ export const ImageUpload = ({
   user,
   stepTwo,
 }) => {
-  console.log({ user });
   const imageMutation = useMutation({
     mutationFn: imageUpload,
     onSuccess: (data) => {
@@ -40,7 +39,6 @@ export const ImageUpload = ({
   };
 
   const uploadImage = async (base64EncodedImage) => {
-    console.log({ base64EncodedImage });
     try {
       imageMutation.mutate({ data: base64EncodedImage });
     } catch (err) {
@@ -49,7 +47,7 @@ export const ImageUpload = ({
     }
   };
 
-  const imageUrl = profileImage || user.profilePhoto;
+  const imageUrl = profileImage;
 
   return (
     <>

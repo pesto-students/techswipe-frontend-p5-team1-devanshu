@@ -27,18 +27,17 @@ export const MessagesComponent = ({ socket }) => {
   if (!conversationsData) return null;
   const { data: conversations } = conversationsData;
 
-  if (conversations.length === 0) return <NoMessages />;
-
   const transformedConversations = conversations.map((conversation) =>
     transformConversations(conversation, user)
   );
 
   return (
     <div className="w-full">
-      <div className="w-80">
+      <div className="w-80 md:w-full">
         <h1 className="block md:hidden  mt-4 text-lg font-semibold border-b-2 p-2">
           Messages List
         </h1>
+        {conversations.length === 0 && <NoMessages />}
         {/* <NoMessages /> */}
         {isConversationOpen ? (
           <div className="h-full my-2 w-full">

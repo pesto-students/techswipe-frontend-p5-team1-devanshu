@@ -3,13 +3,17 @@ import React, { useEffect, useRef, useState } from "react";
 import classNames from "classnames";
 import { parseISO } from "date-fns";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
 //
 import Send from "../assets/send-icon.svg";
 import LeftArrow from "../assets/arrow-left.svg";
 import { getUsers, groupMessagesByDay } from "../utils";
-// import { parse } from "query-string/base";
+import { getUserFromId } from "../utils/api";
 
 export const MessagesList = (props) => {
+  const navigate = useNavigate();
+
   const { user, socket, openConversation, setOpenConversation } = props;
 
   const { toUser } = getUsers(openConversation, user);
@@ -19,8 +23,15 @@ export const MessagesList = (props) => {
   const image = toUser.profilePhoto;
   const toUserId = toUser.toUserId;
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["matchedUser"],
+    queryFn: async () => getUserFromId(toUserId),
+  });
+
   const [newMessage, setNewMessage] = useState("");
   const [messages, setMessages] = useState([]);
+  let [isOpen, setIsOpen] = useState(false);
+
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -63,14 +74,20 @@ export const MessagesList = (props) => {
   };
   const messagesGroup = groupMessagesByDay(messages);
 
+  console.log({ openConversation });
   return (
     <div className="mt-4">
       <div className="flex bg-blue-200 text-white w-full items-center p-4">
         <button onClick={() => setOpenConversation({})}>
           <img src={LeftArrow} alt="" className="h-6 w-8" />
         </button>
-        <img src={image} alt="" className="h-8 w-8 rounded-full" />
-        <div className="ml-2 text-black">{name}</div>
+        <div
+          className="flex items-center"
+          onClick={() => navigate(`/profile/${toUserId}`)}
+        >
+          <img src={image} alt="" className="h-8 w-8 rounded-full" />
+          <div className="ml-2 text-black">{name}</div>
+        </div>
       </div>
       <div
         className="flex flex-col overflow-scroll h-[500px] px-2"

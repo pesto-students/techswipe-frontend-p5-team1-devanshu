@@ -1,5 +1,10 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from "react";
+import Select from "react-select";
+import * as z from "zod";
+import { useController, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+//
 import {
   companyRoles,
   questions,
@@ -7,24 +12,21 @@ import {
   userInterests,
   workExperiences,
 } from "../../utils/constants";
-import Select from "react-select";
-import { useController, useForm } from "react-hook-form";
-import { updateUserInfo2 } from "../../utils/api";
-import { useMutation } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 
 // eslint-disable-next-line react/prop-types
-export const PartTwo = ({ user }) => {
-  const navigate = useNavigate();
-
-  const { register, handleSubmit, reset, control, watch, formState } = useForm({
-    defaultValues: {
-      name: user?.name || "",
-      email: user?.email || "",
-      phoneNumber: user?.phoneNumber || "",
-      radius: user?.discoverySettings?.radius || "",
-      bio: user?.bio | "",
-    },
+export const PartTwo = ({ user, secondStepMutation }) => {
+  const schema = z.object({
+    company: z.string(),
+    // profilePhot
+  });
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(schema),
+    defaultValues: {},
   });
   const { field: workExperience } = useController({
     name: "workExperience",
@@ -90,28 +92,25 @@ export const PartTwo = ({ user }) => {
     }
   };
 
-  const secondStepMutation = useMutation({
-    mutationFn: updateUserInfo2,
-    onSuccess: () => {
-      navigate("/dashboard");
-    },
-  });
-
   const onSubmit = (enteredData, event) => {
     console.log("came here");
     event.preventDefault();
 
     const transformedFields = {
       company: enteredData.company,
-      role: enteredData.role.value,
-      workExperience: `${enteredData.workExperience.value}`,
-      QuestionAnswers: questionAnswers,
+      role: developerRole.value.value,
+      workExperience: `${workExperience.value.value}`,
+      questionAnswers: questionAnswers,
       techStack,
       interest: interests,
     };
 
+    console.log({ transformedFields });
+
     secondStepMutation.mutate(transformedFields);
   };
+
+  console.log(errors);
 
   return (
     <div className="w-full">
@@ -121,13 +120,16 @@ export const PartTwo = ({ user }) => {
             <label className="font-semibold">Where do you work?</label>
             <input
               placeholder="Where do you work?"
-              className="border-2 p-2 my-2"
+              className="border-2 p-2 mt-2"
               type="text"
-              {...register("company", { required: true })}
+              {...register("company", { required: false })}
             />
+            {errors.company?.message && (
+              <p className="text-red-400 mb-1">{errors.company?.message}</p>
+            )}
           </div>
-          <div className="flex flex-col">
-            <label className="font-semibold my-2">Select your Experience</label>
+          <div className="flex flex-col my-4">
+            <label className="font-semibold mb-2">Select your experience</label>
             <Select
               {...workExperience}
               placeholder="Select your Experience"
@@ -135,7 +137,7 @@ export const PartTwo = ({ user }) => {
             />
           </div>
 
-          <div className="flex flex-col my-2 mb-4">
+          <div className="flex flex-col my-4">
             <label className="font-semibold mb-2">
               What is your role in your company?
             </label>
@@ -147,7 +149,7 @@ export const PartTwo = ({ user }) => {
             />
           </div>
           <div className="font-semibold text-lg">
-            Select your favorite Tech Stack?
+            Select your favorite tech stack?
           </div>
           <p className="text-slate-400 text-sm">Select atleast 3 values</p>
           <div className="rounded-md flex flex-wrap my-4 gap-1">
@@ -185,9 +187,9 @@ export const PartTwo = ({ user }) => {
 
           <div className="mb-4">
             <div className="font-medium text-xl">
-              Answer the following questions
+              Answer the following questions?
             </div>
-            <p className="text-slate-400 text-sm">
+            <p className="text-slate-400 text-sm mt-1">
               Better know your personality test
             </p>
           </div>
@@ -197,7 +199,10 @@ export const PartTwo = ({ user }) => {
                 <div className="font-semibold">{question.name}</div>
                 <div className="flex justify-between items-center my-2">
                   {question.answers.map((answer) => (
-                    <div key={answer}>
+                    <div
+                      key={answer}
+                      className="flex items-center justify-between"
+                    >
                       <input
                         required
                         className="mr-2"

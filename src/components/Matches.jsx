@@ -21,15 +21,13 @@ export const MatchesComponent = ({ setSelectedIndex, selectedIndex }) => {
       <h1 className="block md:hidden  mt-2 text-lg font-semibold border-b-2 p-2">
         Matches List
       </h1>
-      <div className="flex flex-wrap items-center justify-around w-80">
+      <div className="flex flex-wrap items-center justify-around w-80 md:w-full">
         {matchedProfiles && matchedProfiles.length > 0 ? (
           matchedProfiles.map((profile, index) => (
             <div
               key={index}
               className="w-30 p-4"
-              onClick={() =>
-                selectedIndex ? setSelectedIndex(1) : navigate("/messages")
-              }
+              onClick={() => navigate(`/profile/${profile["_id"]}`)}
             >
               <img
                 src={profile.profilePhoto}
@@ -50,9 +48,10 @@ const NoMatches = () => {
   return (
     <div className="text-center  flex flex-col justify-center items-center p-2">
       <img src={SwipeLogo} alt="" />
-      <h1>Start Swiping</h1>
-      Matches will appear here once you start to Like people. You can message
-      them directly from here when you’re ready to spark up the conversation.
+      <h1 className="font-semibold">Start Swiping</h1>
+      <div className="p-2">
+        Matches will appear here once you start to Like people.
+      </div>
     </div>
   );
 };

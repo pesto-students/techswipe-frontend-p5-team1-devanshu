@@ -21,6 +21,9 @@ import ErrorPage from "./components/error-page";
 import { Login } from "./Pages/Login";
 import { PrivateRouter } from "./Pages/PrivateRouter";
 import { ErrorFallback } from "./components/ErrorFallback";
+import { ProfileCompleteRoute } from "./Pages/ProfileCompleteRoute";
+import { SelectedProfilePage } from "./Pages/SelectedProfilePage";
+import { UpdateProfile } from "./Pages/UpdateProfile";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -53,7 +56,9 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: (
       <PrivateRouter>
-        <Dashboard socket={socket} />
+        <ProfileCompleteRoute>
+          <Dashboard socket={socket} />
+        </ProfileCompleteRoute>
       </PrivateRouter>
     ),
     errorElement: <ErrorFallback />,
@@ -68,10 +73,23 @@ const router = createBrowserRouter([
     errorElement: <ErrorFallback />,
   },
   {
+    path: "/updateProfile",
+    element: (
+      <PrivateRouter>
+        <ProfileCompleteRoute>
+          <UpdateProfile socket={socket} />
+        </ProfileCompleteRoute>
+      </PrivateRouter>
+    ),
+    errorElement: <ErrorFallback />,
+  },
+  {
     path: "/matches",
     element: (
       <PrivateRouter>
-        <Matches socket={socket} />
+        <ProfileCompleteRoute>
+          <Matches socket={socket} />
+        </ProfileCompleteRoute>
       </PrivateRouter>
     ),
     errorElement: <ErrorFallback />,
@@ -80,7 +98,20 @@ const router = createBrowserRouter([
     path: "/messages",
     element: (
       <PrivateRouter>
-        <Messages socket={socket} />
+        <ProfileCompleteRoute>
+          <Messages socket={socket} />
+        </ProfileCompleteRoute>
+      </PrivateRouter>
+    ),
+    errorElement: <ErrorFallback />,
+  },
+  {
+    path: "/profile/:id",
+    element: (
+      <PrivateRouter>
+        <ProfileCompleteRoute>
+          <SelectedProfilePage socket={socket} />
+        </ProfileCompleteRoute>
       </PrivateRouter>
     ),
     errorElement: <ErrorFallback />,

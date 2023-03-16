@@ -115,3 +115,37 @@ export const imageUpload = async (data) => {
 
   return response.data;
 };
+
+export const getUserFromId = async (id) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+
+  const response = await axiosClient.get(`/api/user/matchUserInfo/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const updateProfileStep1 = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const response = await axiosClient.put("/api/user/personal-info", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
+export const updateProfileStep2 = async (data) => {
+  const token = JSON.parse(localStorage.getItem("token"));
+  const response = await axiosClient.put("/api/user/basic-info", data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};

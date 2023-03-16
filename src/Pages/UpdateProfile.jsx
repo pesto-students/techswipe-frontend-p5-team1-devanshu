@@ -1,34 +1,33 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 //
 import { Header } from "../components/Header";
 import { Sidebar } from "../components/Sidebar";
 import { Settings } from "../components/settings";
 import { MobileFooter } from "../components/MobileFooter";
-import { updateProfileStep1, updateProfileStep2 } from "../utils/api";
+//ß
+import { updateUserInfo2 } from "../utils/api";
 
-export const Profile = ({ socket }) => {
-  let { pathname } = useLocation();
+export const UpdateProfile = ({ socket }) => {
   const navigate = useNavigate();
 
   const [stepTwo, setStepTwo] = useState(false);
+  const [userCoordinates, setUseCoordinates] = useState([]);
 
   const firstStepMutation = useMutation({
-    mutationFn: updateProfileStep1,
+    mutationFn: updateUserInfo2,
     onSuccess: () => {
       setStepTwo(true);
     },
   });
 
   const secondStepMutation = useMutation({
-    mutationFn: updateProfileStep2,
+    mutationFn: updateUserInfo2,
     onSuccess: () => {
       navigate("/dashboard");
     },
   });
-
-  const [userCoordinates, setUseCoordinates] = useState([]);
 
   const getLocation = async () => {
     await navigator.geolocation.getCurrentPosition(
@@ -58,14 +57,14 @@ export const Profile = ({ socket }) => {
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-scroll">
         <Settings
-          userCoordinates={userCoordinates}
-          setStepTwo={setStepTwo}
           stepTwo={stepTwo}
+          setStepTwo={setStepTwo}
+          userCoordinates={userCoordinates}
           firstStepMutation={firstStepMutation}
           secondStepMutation={secondStepMutation}
         />
       </div>
-      {pathname === "/profile" ? null : <MobileFooter />}
+      <MobileFooter />
     </div>
   );
 };

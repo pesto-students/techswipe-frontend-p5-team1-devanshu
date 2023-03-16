@@ -55,7 +55,6 @@ export const TinderCardsList = () => {
   // set last direction and decrease current index
   // calls the api's as well to add them to like & dislike profiles
   const swiped = (direction, item, index) => {
-    console.log({ direction, item, index });
     setLastDirection(direction);
     updateCurrentIndex(index - 1);
     //TODO:Enable this code for it to work
@@ -69,7 +68,6 @@ export const TinderCardsList = () => {
   };
 
   const outOfFrame = (name, idx) => {
-    console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
     // handle the case in which go back is pressed before card goes outOfFrame
     currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
     // TODO: when quickly swipe and restore multiple times the same card,
@@ -79,7 +77,6 @@ export const TinderCardsList = () => {
 
   const swipe = async (dir) => {
     if (canSwipe && currentIndex < possibleMatchs.length) {
-      console.log(currentIndex);
       await childRefs[currentIndex].current.swipe(dir); // Swipe the card!
     }
   };
@@ -97,12 +94,7 @@ export const TinderCardsList = () => {
             onCardLeftScreen={() => outOfFrame(character.name, index)}
             flickOnSwipe={false}
           >
-            <ImageCard
-              character={character}
-              key={index}
-              index={index}
-              currentIndex={currentIndex}
-            />
+            <ImageCard character={character} key={index} />
           </TinderCard>
         ))}
       </div>

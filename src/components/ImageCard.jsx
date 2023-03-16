@@ -44,9 +44,11 @@ export const ImageCard = ({ character, index, currentIndex }) => {
               Working at {character.company}
             </div>
           )}
-          {currentIndex === index && (
-            <div className="text-ellipsis">{character.bio}</div>
-          )}
+          {
+            <div className="text-ellipsis">
+              {character.bio.slice(0, 50) + "..."}
+            </div>
+          }
           <button
             className={classNames(
               "text-blue-600 font-semibold mt-2 pressable",

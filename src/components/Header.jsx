@@ -24,10 +24,10 @@ export const Header = () => {
   return (
     <div className="flex justify-between items-center p-2 px-4 flex-wrap bg-blue-500 md:h-16 text-white">
       <div className="flex items-center">
-        {pathname !== "/profile" ? (
+        {pathname !== "/updateProfile" ? (
           <div
             className="flex items-center cursor-pointer"
-            onClick={() => navigate("/profile")}
+            onClick={() => navigate("/updateProfile")}
           >
             <img
               src={user?.profilePhoto}

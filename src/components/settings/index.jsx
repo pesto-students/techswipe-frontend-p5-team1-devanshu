@@ -1,49 +1,41 @@
 import React, { useState } from "react";
-import Select from "react-select";
-import { useController, useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-
-// import { useNavigate } from "react-router-dom";
-import { useMutation, useQuery } from "@tanstack/react-query";
-//
+import Select from "react-select";
 import RangeSlider from "react-range-slider-input";
 import "react-range-slider-input/dist/style.css";
-//
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useController, useForm } from "react-hook-form";
+import { useQuery } from "@tanstack/react-query";
 import {
   GeoapifyGeocoderAutocomplete,
   GeoapifyContext,
 } from "@geoapify/react-geocoder-autocomplete";
 import "@geoapify/geocoder-autocomplete/styles/minimal.css";
-import { developerOptions, options } from "../../utils/constants";
 //
-import { getUserInfo, updateUserInfo, updateUserInfo2 } from "../../utils/api";
 import { PartTwo } from "./PartTwo";
-import { useNavigate } from "react-router-dom";
 import { ImageUpload } from "../ImageUpload";
+import { developerOptions, options } from "../../utils/constants";
+import { getUserInfo } from "../../utils/api";
 
-export const Settings = ({ userCoordinates }) => {
-  console.log(userCoordinates);
-  const navigate = useNavigate();
+export const Settings = ({
+  // userCoordinates,
+  stepTwo,
+  firstStepMutation,
+  secondStepMutation,
+}) => {
   const [profileImage, setProfileImage] = useState("");
 
   const schema = z.object({
-    username: z.string(),
-    name: z.string(),
-    profilePhoto: z.string(),
-    phoneNumber: z.number(),
-    email: z.string(),
-    place: z.string(),
     bio: z.string(),
-    birthday: z.string(),
-    gender: z.string(),
-    coordinates: z.string(),
-    discoverySettings: {
-      role: z.string(), //default value
-      gender: z.string(),
-      ageRange: z.string(), // array
-      radius: z.number(), // 100KM
-    },
+    name: z.string().min(5),
+    email: z.string().email(),
+    // phoneNumber: z.string().length(10),
+    phoneNumber: z
+      .number()
+      .transform((val) => val.toString())
+      .refine((val) => val.length === 10, {
+        message: "Number must be exactly 10 digits",
+      }),
   });
 
   const { data: user } = useQuery({
@@ -57,14 +49,7 @@ export const Settings = ({ userCoordinates }) => {
         radius: data?.discoverySettings?.radius || "",
         bio: data?.bio | "",
       });
-    },
-  });
-
-  const firstStepMutation = useMutation({
-    mutationFn: updateUserInfo2,
-    onSuccess: () => {
-      // navigate("/dashboard");
-      setStepTwo(true);
+      setProfileImage(data.profilePhoto);
     },
   });
 
@@ -76,16 +61,16 @@ export const Settings = ({ userCoordinates }) => {
     watch,
     formState: { errors },
   } = useForm({
-    // resolver: zodResolver(schema),
+    resolver: zodResolver(schema),
     defaultValues: {
       name: user?.name || "",
       email: user?.email || "",
       phoneNumber: user?.phoneNumber || "",
       radius: user?.discoverySettings?.radius || "",
       bio: user?.bio | "",
+      gender: user?.gender || "",
     },
   });
-  console.log({ errors });
 
   const { field: genderField } = useController({
     name: "gender",
@@ -99,19 +84,18 @@ export const Settings = ({ userCoordinates }) => {
     control,
     defaultValue: user?.discoverySettings?.gender || "",
 
-    rules: { required: false },
+    rules: { required: true, validate: () => {} },
   });
 
   const { field: developerField } = useController({
     name: "role",
     control,
     defaultValue: user?.discoverySettings?.role || "All",
-    rules: { required: false },
+    rules: { required: true, validate: () => {} },
   });
 
   const radius = watch("radius");
 
-  const [stepTwo, setStepTwo] = useState(false);
   const [location, setLocation] = useState({});
   const [ageRange, setAgeRange] = useState(user?.ageRange || [24, 36]);
 
@@ -136,7 +120,6 @@ export const Settings = ({ userCoordinates }) => {
   };
 
   const onSubmit = (enteredData, event) => {
-    console.log("came here", enteredData);
     event.preventDefault();
 
     const transformedFields = {
@@ -144,24 +127,20 @@ export const Settings = ({ userCoordinates }) => {
       profilePhoto: profileImage,
       phoneNumber: enteredData.phoneNumber,
       email: enteredData.email || user?.email,
-      place: "india",
+      // TODO:FIXME to dynamic value
+      place: "India ",
       bio: enteredData.bio,
       birthday: enteredData.birthday || "2023-03-03",
-      gender: enteredData.gender.value,
+      gender: genderField.value.value,
       coordinates: getCoordinates(),
       discoverySettings: {
-        role: enteredData.role.value, //default value
-        gender: enteredData.discoveryGender.value,
+        role: developerField.value.value, //default value
+        gender: discoveryGender.value.value,
         ageRange: ageRange, // array
         radius: radius, // 100KM
       },
-      // company: enteredData.company,
-      // role: enteredData.role.value,
-      // workExperience: `${enteredData.workExperience.value}`,
-      // QuestionAnswers: questionAnswers,
-      // techStack,
-      // interest: interests,
     };
+
     firstStepMutation.mutate(transformedFields);
   };
 
@@ -188,23 +167,29 @@ export const Settings = ({ userCoordinates }) => {
           profileImage={profileImage}
           stepTwo={stepTwo}
         />
+        {errors.profilePhoto?.message && (
+          <p className="text-red-400 mb-1">{errors.profilePhoto?.message}</p>
+        )}
         {!stepTwo ? (
           <>
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="text-lg font-medium my-4 self-center">
+              <div className="text-lg font-semibold my-4 self-center">
                 Account settings
               </div>
               <div>
                 <div className="flex flex-col">
-                  <label className="font-semibold">Name *</label>
+                  <label className="font-medium">Name *</label>
                   <input
                     className="border-2 p-2 my-2"
                     placeholder="Name"
                     {...register("name", { required: false })}
                   />
+                  {errors.name?.message && (
+                    <p className="text-red-400 mb-1">{errors.name?.message}</p>
+                  )}
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-semibold">Email *</label>
+                  <label className="font-medium">Email *</label>
                   <input
                     disabled={user?.email ? true : false}
                     placeholder="Email"
@@ -212,10 +197,13 @@ export const Settings = ({ userCoordinates }) => {
                     type="email"
                     {...register("email", { required: false })}
                   />
+                  {errors.email?.message && (
+                    <p className="text-red-400 mb-1">{errors.email?.message}</p>
+                  )}
                 </div>
 
                 <div className="flex flex-col py-2">
-                  <label className="font-semibold">Gender *</label>
+                  <label className="font-medium">Gender *</label>
                   <Select
                     {...genderField}
                     placeholder="Gender"
@@ -223,19 +211,29 @@ export const Settings = ({ userCoordinates }) => {
                     //   onChange={setSelectedOption}
                     options={options}
                   />
+                  {errors.gender?.message && (
+                    <p className="text-red-400 mb-1">
+                      {errors.gender?.message}
+                    </p>
+                  )}
                 </div>
 
                 <div className="flex flex-col">
-                  <label className="font-semibold">Phone Number *</label>
+                  <label className="font-medium">Phone Number *</label>
                   <input
                     placeholder="Phone Number"
                     className="border-2 p-2 my-2"
                     type="number"
                     {...register("phoneNumber")}
                   />
+                  {errors.phoneNumber?.message && (
+                    <p className="text-red-400 mb-1">
+                      {errors.phoneNumber?.message}
+                    </p>
+                  )}
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-semibold">Date of birth *</label>
+                  <label className="font-medium">Date of Birth *</label>
                   <input
                     placeholder="Date of birth"
                     className="border-2 p-2 my-2"
@@ -244,36 +242,42 @@ export const Settings = ({ userCoordinates }) => {
                   />
                 </div>
                 <div className="flex flex-col">
-                  <label className="font-semibold">Profile Info *</label>
+                  <label className="font-medium">Profile Info *</label>
                   <textarea
                     placeholder="Profile Info"
-                    className="border-2 p-2 my-2"
+                    className="border-2 p-2 mt-2"
                     type="text"
                     {...register("bio", { required: false })}
                   />
+                  {errors.bio?.message && (
+                    <p className="text-red-400 mb-1">{errors.bio?.message}</p>
+                  )}
                 </div>
-                <div className="text-lg font-bold mb-4">Discovery settings</div>
+                <div className="text-lg font-semibold my-2">
+                  Discovery Settings
+                </div>
                 {!hideLocation && (
-                  <div className="flex flex-col">
-                    <label className="font-semibold">Location</label>
+                  <>
+                    <div className="flex flex-col">
+                      <label className="font-medium">Location</label>
 
-                    <GeoapifyContext apiKey="112eddcf23924c998ccb79ed3f2c3b6c">
-                      <GeoapifyGeocoderAutocomplete
-                        placeholder="Enter address here"
-                        type="street"
-                        limit={5}
-                        value={location.formattedAddress || ""}
-                        placeSelect={onPlaceSelect}
-                      />
-                    </GeoapifyContext>
-                  </div>
+                      <GeoapifyContext apiKey="112eddcf23924c998ccb79ed3f2c3b6c">
+                        <GeoapifyGeocoderAutocomplete
+                          placeholder="Enter address here"
+                          type="street"
+                          limit={5}
+                          value={location.formattedAddress || ""}
+                          placeSelect={onPlaceSelect}
+                        />
+                      </GeoapifyContext>
+                    </div>
+                  </>
                 )}
                 <div className="border-2 px-2 my-2">
                   <div className="flex flex-col">
                     <div className="flex items-center justify-between">
-                      <label className="font-semibold my-2">Age range {}</label>
+                      <label className="my-2">Age range {}</label>
                       <div>
-                        {" "}
                         {ageRange[0]} - {ageRange[1]}{" "}
                       </div>
                     </div>
@@ -289,7 +293,7 @@ export const Settings = ({ userCoordinates }) => {
                 </div>
                 <div className="border-2 p-2 my-4">
                   <div className="flex flex-col">
-                    <div className="flex justify-between font-semibold mb-2">
+                    <div className="flex justify-between  mb-2">
                       <div>Max Distance</div>
                       <div>{radius} KM</div>
                     </div>
@@ -300,10 +304,15 @@ export const Settings = ({ userCoordinates }) => {
                       max={10000}
                       {...register("radius")}
                     />
+                    {errors.radius?.message && (
+                      <p className="text-red-400 mb-1">
+                        {errors.radius?.message}
+                      </p>
+                    )}
                   </div>
                 </div>
-                <div className="flex flex-col mb-2">
-                  <label className="font-semibold mb-2">Looking for</label>
+                <div className="flex flex-col mb-4">
+                  <label className="font-medium mb-1">Looking for</label>
                   <Select
                     {...discoveryGender}
                     placeholder="Looking for"
@@ -311,7 +320,7 @@ export const Settings = ({ userCoordinates }) => {
                   />
                 </div>
                 <div className="flex flex-col mb-2">
-                  <label className="font-semibold mb-2">Show me </label>
+                  <label className="font-medium mb-1">Show me </label>
                   <Select
                     {...developerField}
                     placeholder="Show Me"
@@ -329,7 +338,7 @@ export const Settings = ({ userCoordinates }) => {
           </>
         ) : (
           <div>
-            <PartTwo user={user} />
+            <PartTwo user={user} secondStepMutation={secondStepMutation} />
           </div>
         )}
       </div>
