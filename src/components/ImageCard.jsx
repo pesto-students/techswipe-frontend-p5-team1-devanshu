@@ -38,6 +38,9 @@ export const ImageCard = ({ character, index, currentIndex, isLoggedUser }) => {
       </div>
       <div className="">
         <div className="p-3 pb-0">
+          {character?.hotProfile && (
+            <div className="text-red-400">🔥 Profile</div>
+          )}
           <div className="flex items-center justify-between">
             <div className="text-xl">{character.name}</div>
             {isLoggedUser && (
