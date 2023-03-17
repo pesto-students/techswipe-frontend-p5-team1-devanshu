@@ -74,7 +74,6 @@ export const MessagesList = (props) => {
   };
   const messagesGroup = groupMessagesByDay(messages);
 
-  console.log({ openConversation });
   return (
     <div className="mt-4">
       <div className="flex bg-blue-200 text-white w-full items-center p-4">

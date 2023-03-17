@@ -33,7 +33,6 @@ export const ImageUpload = ({
       uploadImage(reader.result);
     };
     reader.onerror = () => {
-      console.error("AHHHHHHHH!!");
       setErrMsg("something went wrong!");
     };
   };

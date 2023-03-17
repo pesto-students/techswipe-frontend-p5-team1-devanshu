@@ -36,6 +36,7 @@ export const Settings = ({
       .refine((val) => val.length === 10, {
         message: "Number must be exactly 10 digits",
       }),
+    radius: z.number(),
   });
 
   const { data: user } = useQuery({
@@ -46,7 +47,7 @@ export const Settings = ({
         name: data?.name || "",
         email: data?.email || "",
         phoneNumber: data?.phoneNumber || "",
-        radius: data?.discoverySettings?.radius || "",
+        radius: data?.discoverySettings?.radius / 1000 || "",
         bio: data?.bio | "",
       });
       setProfileImage(data.profilePhoto);
@@ -66,7 +67,7 @@ export const Settings = ({
       name: user?.name || "",
       email: user?.email || "",
       phoneNumber: user?.phoneNumber || "",
-      radius: user?.discoverySettings?.radius || "",
+      radius: user?.discoverySettings?.radius / 1000 || "",
       bio: user?.bio | "",
       gender: user?.gender || "",
     },
@@ -137,7 +138,7 @@ export const Settings = ({
         role: developerField.value.value, //default value
         gender: discoveryGender.value.value,
         ageRange: ageRange, // array
-        radius: radius, // 100KM
+        radius: radius * 1000, // 100KM
       },
     };
 
@@ -299,9 +300,9 @@ export const Settings = ({
                     </div>
                     <input
                       type="range"
-                      step={1000}
-                      min={1000}
-                      max={10000}
+                      step={10}
+                      min={10}
+                      max={200}
                       {...register("radius")}
                     />
                     {errors.radius?.message && (

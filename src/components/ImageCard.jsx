@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
 import classNames from "classnames";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { techStackIcons } from "../utils/constants";
 
-export const ImageCard = ({ character, index, currentIndex }) => {
+export const ImageCard = ({ character, index, currentIndex, isLoggedUser }) => {
+  const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
+
   return (
     <div className="w-[290px] sm:w-[360px] md:w-[360px] my-10 border-2 border-slate-300 bg-white rounded-md max-w-lg select-none">
       <div className="flex">
@@ -35,7 +38,17 @@ export const ImageCard = ({ character, index, currentIndex }) => {
       </div>
       <div className="">
         <div className="p-3 pb-0">
-          <div className="w-full text-xl">{character.name}</div>
+          <div className="flex items-center justify-between">
+            <div className="text-xl">{character.name}</div>
+            {isLoggedUser && (
+              <div
+                className="p-2 px-4 border-b-2 bg-blue-500 w-fit text-white rounded-md"
+                onClick={() => navigate("/updateProfile")}
+              >
+                Edit
+              </div>
+            )}
+          </div>
           <div className="my-4 p-2 border-b-2 bg-blue-500 rounded-md w-fit text-white">
             {character.role}
           </div>

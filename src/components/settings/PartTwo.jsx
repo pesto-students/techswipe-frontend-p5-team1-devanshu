@@ -93,7 +93,6 @@ export const PartTwo = ({ user, secondStepMutation }) => {
   };
 
   const onSubmit = (enteredData, event) => {
-    console.log("came here");
     event.preventDefault();
 
     const transformedFields = {
@@ -104,8 +103,6 @@ export const PartTwo = ({ user, secondStepMutation }) => {
       techStack,
       interest: interests,
     };
-
-    console.log({ transformedFields });
 
     secondStepMutation.mutate(transformedFields);
   };

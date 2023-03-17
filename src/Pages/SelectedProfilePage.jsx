@@ -1,22 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
+import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
 import { Header } from "../components/Header";
 import { ImageCard } from "../components/ImageCard";
 import { MobileFooter } from "../components/MobileFooter";
 import { Sidebar } from "../components/Sidebar";
 import { getUserFromId } from "../utils/api";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export const SelectedProfilePage = ({ socket }) => {
   const { id } = useParams();
 
+  const [localToken] = useLocalStorage("token", "");
+  const { userId } = jwt_decode(localToken);
+
   const { data, isLoading } = useQuery({
-    queryKey: "individualProfile",
+    queryKey: ["individualProfile", id],
     queryFn: async () => getUserFromId(id),
   });
 
   if (isLoading) return <>Loading....</>;
-  console.log(data);
+
+  const isLoggedUser = id === userId;
+
   return (
     <div>
       <div className="flex flex-col md:flex-row w-full h-screen">
@@ -27,7 +34,10 @@ export const SelectedProfilePage = ({ socket }) => {
           </div>
         </div>
         <div className="flex flex-col items-center w-full h-full overflow-scroll">
-          <ImageCard character={data?.matchUserInfo} />
+          <ImageCard
+            character={data?.matchUserInfo}
+            isLoggedUser={isLoggedUser}
+          />
           {/* <div className="block md:hidden">
             <MessagesComponent socket={socket} />
           </div>
