@@ -28,10 +28,10 @@ import { UpdateProfile } from "./Pages/UpdateProfile";
 import * as Sentry from "@sentry/browser";
 import { BrowserTracing } from "@sentry/tracing";
 
-const NODE_ENV = import.meta.env.NODE_ENV;
-console.log(NODE_ENV);
+const NODE_ENV = import.meta.env.VITE_NODE_ENV;
 
 if (NODE_ENV === "production") {
+  console.log("came to this block");
   Sentry.init({
     dsn: "https://0564fc7663ff4a29946311255904b2bf@o4504848420110336.ingest.sentry.io/4504848422469632",
     integrations: [new BrowserTracing()],
