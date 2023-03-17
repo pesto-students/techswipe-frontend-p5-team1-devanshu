@@ -25,6 +25,24 @@ import { ProfileCompleteRoute } from "./Pages/ProfileCompleteRoute";
 import { SelectedProfilePage } from "./Pages/SelectedProfilePage";
 import { UpdateProfile } from "./Pages/UpdateProfile";
 
+import * as Sentry from "@sentry/browser";
+import { BrowserTracing } from "@sentry/tracing";
+
+const NODE_ENV = import.meta.env.NODE_ENV;
+console.log(NODE_ENV);
+
+if (NODE_ENV === "production") {
+  Sentry.init({
+    dsn: "https://0564fc7663ff4a29946311255904b2bf@o4504848420110336.ingest.sentry.io/4504848422469632",
+    integrations: [new BrowserTracing()],
+
+    // Set tracesSampleRate to 1.0 to capture 100%
+    // of transactions for performance monitoring.
+    // We recommend adjusting this value in production
+    tracesSampleRate: 1.0,
+  });
+}
+
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {

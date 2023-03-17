@@ -9,7 +9,6 @@ import {
   postUserLike,
 } from "../utils/api";
 //
-import { users } from "../utils/data";
 import Like from "../assets/like.svg";
 import DisLike from "../assets/dislike.svg";
 
@@ -34,6 +33,7 @@ export const TinderCardsList = () => {
 
   const possibleMatchs = (data && data?.possibleMatches) || [];
 
+  // eslint-disable-next-line no-unused-vars
   const [lastDirection, setLastDirection] = useState();
   const currentIndexRef = useRef(currentIndex);
 
