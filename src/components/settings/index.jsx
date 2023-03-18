@@ -30,13 +30,8 @@ export const Settings = ({
     name: z.string().min(5),
     email: z.string().email(),
     // phoneNumber: z.string().length(10),
-    phoneNumber: z
-      .number()
-      .transform((val) => val.toString())
-      .refine((val) => val.length === 10, {
-        message: "Number must be exactly 10 digits",
-      }),
-    radius: z.number(),
+    phoneNumber: z.string(),
+    radius: z.string(),
   });
 
   const { data: user } = useQuery({
@@ -227,11 +222,11 @@ export const Settings = ({
                     type="number"
                     {...register("phoneNumber")}
                   />
-                  {errors.phoneNumber?.message && (
+                  {/* {errors.phoneNumber?.message && (
                     <p className="text-red-400 mb-1">
                       {errors.phoneNumber?.message}
                     </p>
-                  )}
+                  )} */}
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Date of Birth *</label>
@@ -305,11 +300,11 @@ export const Settings = ({
                       max={200}
                       {...register("radius")}
                     />
-                    {errors.radius?.message && (
+                    {/* {errors.radius?.message && (
                       <p className="text-red-400 mb-1">
                         {errors.radius?.message}
                       </p>
-                    )}
+                    )} */}
                   </div>
                 </div>
                 <div className="flex flex-col mb-4">
