@@ -1,15 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import jwt_decode from "jwt-decode";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+//
 import { Header } from "../components/Header";
+import { Sidebar } from "../components/Sidebar";
 import { ImageCard } from "../components/ImageCard";
 import { MobileFooter } from "../components/MobileFooter";
-import { Sidebar } from "../components/Sidebar";
+//
 import { getUserFromId } from "../utils/api";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 
-export const SelectedProfilePage = ({ socket }) => {
+export const SelectedProfilePage = () => {
   const { id } = useParams();
 
   const [localToken] = useLocalStorage("token", "");
@@ -30,7 +32,7 @@ export const SelectedProfilePage = ({ socket }) => {
         <div className="md:w-1/3 md:h-full border-r-2 border-slate-400">
           <Header />
           <div className="hidden md:block">
-            <Sidebar socket={socket} />
+            <Sidebar />
           </div>
         </div>
         <div className="flex flex-col items-center w-full h-full overflow-scroll">

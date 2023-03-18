@@ -8,7 +8,7 @@ import { Settings } from "../components/settings";
 import { MobileFooter } from "../components/MobileFooter";
 import { updateProfileStep1, updateProfileStep2 } from "../utils/api";
 
-export const Profile = ({ socket }) => {
+export const Profile = () => {
   let { pathname } = useLocation();
   const navigate = useNavigate();
 
@@ -53,7 +53,7 @@ export const Profile = ({ socket }) => {
       <div className="md:w-1/3 md:h-full border-r-2 border-slate-400">
         <Header />
         <div className="hidden md:block">
-          <Sidebar socket={socket} />
+          <Sidebar />
         </div>
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-scroll">

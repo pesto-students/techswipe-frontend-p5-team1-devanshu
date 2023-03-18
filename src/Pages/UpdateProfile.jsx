@@ -9,7 +9,7 @@ import { MobileFooter } from "../components/MobileFooter";
 //ß
 import { updateUserInfo2 } from "../utils/api";
 
-export const UpdateProfile = ({ socket }) => {
+export const UpdateProfile = () => {
   const navigate = useNavigate();
 
   const [stepTwo, setStepTwo] = useState(false);
@@ -52,7 +52,7 @@ export const UpdateProfile = ({ socket }) => {
       <div className="md:w-1/3 md:h-full border-r-2 border-slate-400">
         <Header />
         <div className="hidden md:block">
-          <Sidebar socket={socket} />
+          <Sidebar />
         </div>
       </div>
       <div className="flex flex-col items-center w-full h-full overflow-scroll">

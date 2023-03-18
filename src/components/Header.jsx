@@ -20,10 +20,10 @@ export const Header = () => {
     navigate("/");
   };
 
-  if (isLoading) return <div>Loading....</div>;
+  if (isLoading) return <div></div>;
 
   return (
-    <div className="flex justify-between items-center p-3 flex-wrap bg-blue-500 md:h-16 text-white">
+    <div className="flex justify-between items-center p-3 flex-wrap bg-blue-500 md:h-22 text-white">
       <div className="flex items-center">
         {!id ? (
           <div

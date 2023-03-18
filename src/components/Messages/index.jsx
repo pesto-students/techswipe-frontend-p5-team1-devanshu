@@ -1,12 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { MessagesList } from "../MessagesList";
 import { NoMessages } from "../NoMessages";
 //
 import { getUserConversations, getUserInfo } from "../../utils/api";
 import { transformConversations } from "../../utils";
+import { SocketContext } from "../../Pages/SocketProvider";
 
-export const MessagesComponent = ({ socket }) => {
+export const MessagesComponent = () => {
+  const socket = useContext(SocketContext);
+
   // const [conversations, setConversations] = useState([]);
   const [openConversation, setOpenConversation] = useState({});
 

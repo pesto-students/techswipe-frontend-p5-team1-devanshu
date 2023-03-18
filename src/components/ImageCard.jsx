@@ -1,10 +1,9 @@
-/* eslint-disable react/prop-types */
 import classNames from "classnames";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { techStackIcons } from "../utils/constants";
 
-export const ImageCard = ({ character, index, currentIndex, isLoggedUser }) => {
+export const ImageCard = ({ character, isLoggedUser }) => {
   const navigate = useNavigate();
   const [showMore, setShowMore] = useState(false);
 
@@ -19,7 +18,7 @@ export const ImageCard = ({ character, index, currentIndex, isLoggedUser }) => {
           <div className="bg-blue-500 text-center py-4 text-white font-medium rounded-tr-md">
             <div>
               {character?.workExperience === "<1"
-                ? "<1"
+                ? "<1 year"
                 : `${character.workExperience} years`}
             </div>
           </div>

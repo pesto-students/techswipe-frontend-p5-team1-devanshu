@@ -83,12 +83,12 @@ export const TinderCardsList = () => {
   return (
     <div>
       <div className="flex flex-col items-center w-80 h-[640px] relative max-w-lg">
-        {possibleMatchs.length === 0 && (
+        {/* {possibleMatchs.length === 0 && (
           <div>
             You have reached your limit, Please try to refresh & comeback after
             some time{" "}
           </div>
-        )}
+        )} */}
         {currentIndex === -1 && (
           <div className="flex h-[640px] mt-25">
             You have reached your limit, Please try to refresh & comeback after

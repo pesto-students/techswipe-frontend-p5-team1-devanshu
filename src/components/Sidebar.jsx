@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Tab } from "@headlessui/react";
 // import { Matches } from "./";
 import { MessagesComponent } from "./Messages";
 import { MatchesComponent } from "./Matches";
+import { SocketContext } from "../Pages/SocketProvider";
 
-export const Sidebar = ({ socket }) => {
+export const Sidebar = () => {
+  const socket = useContext(SocketContext);
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   return (

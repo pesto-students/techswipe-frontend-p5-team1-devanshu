@@ -8,7 +8,6 @@ import {
   QueryClientProvider,
 } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { io } from "socket.io-client";
 //
 import "./index.css";
 import { Hero } from "./Pages/Hero";
@@ -27,6 +26,7 @@ import { UpdateProfile } from "./Pages/UpdateProfile";
 
 import * as Sentry from "@sentry/browser";
 import { BrowserTracing } from "@sentry/tracing";
+import { SocketProvider } from "./Pages/SocketProvider";
 
 const NODE_ENV = import.meta.env.VITE_NODE_ENV;
 
@@ -49,14 +49,6 @@ const queryClient = new QueryClient({
     },
   },
 });
-const baseURL = import.meta.env.VITE_BACKEND_API;
-const token = JSON.parse(localStorage.getItem("token"));
-
-const socket = io(baseURL, {
-  auth: {
-    token,
-  },
-});
 
 const router = createBrowserRouter([
   {
@@ -74,7 +66,9 @@ const router = createBrowserRouter([
     element: (
       <PrivateRouter>
         <ProfileCompleteRoute>
-          <Dashboard socket={socket} />
+          <SocketProvider>
+            <Dashboard />
+          </SocketProvider>
         </ProfileCompleteRoute>
       </PrivateRouter>
     ),
@@ -84,7 +78,9 @@ const router = createBrowserRouter([
     path: "/profile",
     element: (
       <PrivateRouter>
-        <Profile socket={socket} />
+        <SocketProvider>
+          <Profile />
+        </SocketProvider>
       </PrivateRouter>
     ),
     errorElement: <ErrorFallback />,
@@ -94,7 +90,9 @@ const router = createBrowserRouter([
     element: (
       <PrivateRouter>
         <ProfileCompleteRoute>
-          <UpdateProfile socket={socket} />
+          <SocketProvider>
+            <UpdateProfile />
+          </SocketProvider>
         </ProfileCompleteRoute>
       </PrivateRouter>
     ),
@@ -105,7 +103,9 @@ const router = createBrowserRouter([
     element: (
       <PrivateRouter>
         <ProfileCompleteRoute>
-          <Matches socket={socket} />
+          <SocketProvider>
+            <Matches />
+          </SocketProvider>
         </ProfileCompleteRoute>
       </PrivateRouter>
     ),
@@ -116,7 +116,9 @@ const router = createBrowserRouter([
     element: (
       <PrivateRouter>
         <ProfileCompleteRoute>
-          <Messages socket={socket} />
+          <SocketProvider>
+            <Messages />
+          </SocketProvider>
         </ProfileCompleteRoute>
       </PrivateRouter>
     ),
@@ -127,7 +129,9 @@ const router = createBrowserRouter([
     element: (
       <PrivateRouter>
         <ProfileCompleteRoute>
-          <SelectedProfilePage socket={socket} />
+          <SocketProvider>
+            <SelectedProfilePage />
+          </SocketProvider>
         </ProfileCompleteRoute>
       </PrivateRouter>
     ),
