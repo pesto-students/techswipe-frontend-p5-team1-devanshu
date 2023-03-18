@@ -7,7 +7,6 @@ export const SocketProvider = (props) => {
   const [socket, setSocket] = useState();
   // eslint-disable-next-line no-unused-vars
   const [token, setToken] = useState(JSON.parse(localStorage.getItem("token")));
-  console.log({ token });
 
   const baseURL = import.meta.env.VITE_BACKEND_API;
   //   const token = JSON.parse(localStorage.getItem("token"));

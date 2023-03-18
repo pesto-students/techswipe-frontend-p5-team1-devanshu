@@ -107,8 +107,6 @@ export const PartTwo = ({ user, secondStepMutation }) => {
     secondStepMutation.mutate(transformedFields);
   };
 
-  console.log(errors);
-
   return (
     <div className="w-full">
       <form onSubmit={handleSubmit(onSubmit)}>

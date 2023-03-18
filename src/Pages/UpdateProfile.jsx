@@ -38,7 +38,6 @@ export const UpdateProfile = () => {
         }),
       (err) => {
         setUseCoordinates([]);
-        console.log(err);
       }
     );
   };
