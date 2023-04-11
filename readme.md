@@ -21,19 +21,6 @@ TechSwipe enables connections between developers based on their developer intere
 
 You can access the live version of the TechSwipe by from this link [TechSwipe](https://techswipe.vercel.app/)
 
-# Screenshots
-- Home Page
-
-![Home Page](./src/assets/demo1.png)
-
-- Login Page
-
-![Home Page](./src/assets/demo2.png)
-
-- Dashboard page
-
-![Dashboard](./src/assets/demo3.png)
-
 # Installation
 
 - Fork or directly clone this repository to your local machine
